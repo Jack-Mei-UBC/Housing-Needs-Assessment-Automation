@@ -1,3 +1,6 @@
-/assets/*.csv
-/assets/*/*.ivt
+/assets/
+/assets/codes/
 /local/
+/.idea/
+/generated_doc.docx
+/*.docx#

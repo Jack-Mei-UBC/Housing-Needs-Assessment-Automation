@@ -1,10 +1,10 @@
 import report_input
-from helpers.tables import mapped_geo_code
+from helpers.data_parsing.tables import mapped_geo_code
 
 
 # Get the relevant CSDs
 
-def get_relevant_csd():
+def get_table2():
     mask = mapped_geo_code["Geo_Code"].isin(report_input.relevant_csds)
     relevant_geos = mapped_geo_code[mask]
     # Create a new DataFrame with the specified columns
@@ -15,10 +15,4 @@ def get_relevant_csd():
     new_df.loc[:, 'lvl'] = new_df.loc[:, 'lvl'].astype(str)
     new_df.loc[new_df['lvl'] == "True", 'lvl'] = "CD"
     new_df.loc[new_df['lvl'] == "False", 'lvl'] = "CSD"
-    relevant_region_table = []
-    for row in new_df.index:
-        row_data = {}
-        for col in new_df.columns:
-            row_data[col] = new_df.at[row, col]
-        relevant_region_table.append(row_data)
-    return relevant_region_table
+    return new_df
