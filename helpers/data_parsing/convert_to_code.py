@@ -19,7 +19,7 @@ def find_code(name):
     return code
 
 
-process_using_geocodes_integrated = [
+copy_existing_index = [
     '2021_Prov_CDs_CSDs_Dwelling type_Bedrooms.csv',
     '2021_Prov_CDs_CSDs_Dwelling type_Period.csv',
 ]
@@ -43,7 +43,7 @@ quirky_regions = {
 }
 # Extract geocode from the name
 for csv_file in csv_files:
-    if csv_file in processed_csv_files or csv_file in process_using_geocodes_integrated:
+    if csv_file in processed_csv_files or csv_file in copy_existing_index:
         continue
     chunk = pd.read_csv("assets/" + csv_file, header=None, chunksize=10, encoding='latin-1')
     chunk = next(chunk)
@@ -59,30 +59,25 @@ for csv_file in csv_files:
     temp = temp.set_index(new_index)
     temp.to_csv("assets/codes/" + csv_file)
 
+working_CSDs = pd.read_csv("assets/codes/" + "2021_Prov_CDs_CSDs.csv", header=[0, 1], index_col=0, encoding='latin-1')
+original_CSDs = pd.read_csv("assets/" + "2021_Prov_CDs_CSDs.csv", header=[0, 1], index_col=0, encoding='latin-1')
+# Copy the indexes from another csv if they match
+for csv_file in csv_files:
+    if csv_file in processed_csv_files or csv_file not in copy_existing_index:
+        continue
+    chunk = pd.read_csv("assets/" + csv_file, header=None, chunksize=10, encoding='latin-1')
+    chunk = next(chunk)
+    header_length = 1
+    while header_length < 10:  # If the header is longer than 10 we have different issues now
+        if re.match(r'^\d*\.?\d+$', str(chunk.iloc[header_length, 1])) is not None:
+            break
+        header_length += 1
 
-# def find_code_integrated(name):
-#     try:
-#         geo = mapped_geo_code[mapped_geo_code["Geography"] == name]["Geo_Code"].item()
-#     except:
-#         return np.nan
-#
-#     return geo
-#
-#
-# # Process using geocodes integrated
-# for csv_file in csv_files:
-#     if csv_file in processed_csv_files or csv_files not in process_using_geocodes_integrated:
-#         continue
-#     chunk = pd.read_csv("assets/" + csv_file, header=None, chunksize=10, encoding='latin-1')
-#     chunk = next(chunk)
-#     header_length = 1
-#     while header_length < 10:  # If the header is longer than 10 we have different issues now
-#         if re.match(r'^\d*\.?\d+$', str(chunk.iloc[header_length, 1])) is not None:
-#             break
-#         header_length += 1
-#
-#     temp = pd.read_csv("assets/" + csv_file, header=[i for i in range(header_length)], index_col=0, encoding='latin-1')
-#
-#     new_index = temp.index.to_series().apply(find_code)
-#     temp = temp.set_index(new_index)
-#     temp.to_csv("assets/codes/" + csv_file)
+    temp = pd.read_csv("assets/" + csv_file, header=[i for i in range(header_length)], index_col=0, encoding='latin-1')
+
+    for i, label in enumerate(temp.index):
+        if label not in original_CSDs.index[i]:
+            LookupError(f"{temp.index} not found in index, closest is {original_CSDs.index[i]}")
+
+    temp.index = working_CSDs.index
+    temp.to_csv("assets/codes/" + csv_file)

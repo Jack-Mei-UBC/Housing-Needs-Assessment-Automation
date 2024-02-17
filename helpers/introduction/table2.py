@@ -4,8 +4,9 @@ from helpers.data_parsing.tables import mapped_geo_code
 
 # Get the relevant CSDs
 
-def get_table2():
-    mask = mapped_geo_code["Geo_Code"].isin(report_input.relevant_csds)
+def get_table2(csds):
+    # mask = mapped_geo_code["Geo_Code"].isin(report_input.relevant_csds)
+    mask = mapped_geo_code["Geo_Code"].isin(csds)
     relevant_geos = mapped_geo_code[mask]
     # Create a new DataFrame with the specified columns
     new_df = relevant_geos[['Geography', 'Geo_Code']]

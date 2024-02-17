@@ -13,6 +13,6 @@ context = {
     'current_date': str(date.today()),
     'community_name': report_input.community_name,
 }
-context.update(part_1_context())
+context.update(part_1_context(doc))
 doc.render(context)
 doc.save("generated_doc.docx")
