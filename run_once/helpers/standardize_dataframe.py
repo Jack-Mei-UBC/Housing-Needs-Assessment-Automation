@@ -1,15 +1,13 @@
 import re
 
 import pandas as pd
-import numpy as np
 
-from helpers.data_parsing.column_mapping import col_map, fuzzy_col_mapping
+from run_once.helpers.column_mapping import col_map, fuzzy_col_mapping
 
 
 # Unlike the previous hart project, we're going to use MultiIndex from now on
 # Read here if you don't know how it works https://pandas.pydata.org/docs/user_guide/advanced.html
 # It's basically a Series, but instead of using 0-n, you can use series[col][col2] to index things
-
 def standardize_dataframe(file_name):
     # Check the length of the header
     chunk = pd.read_csv(file_name, header=None, chunksize=10, encoding='latin-1')
@@ -61,24 +59,3 @@ def standardize_dataframe(file_name):
         df.columns = new_label_list
 
     return df
-
-
-comprehensive_2006 = "assets/codes/2006_Prov_CDs_CSDs_Population.csv"
-comprehensive_2011 = "assets/codes/2011_Prov_CDs_CSDs_Demographics.csv"
-comprehensive_2016 = "assets/codes/2016_Prov_CDs_CSDs.csv"
-comprehensive_2021 = "assets/codes/2021_Prov_CDs_CSDs.csv"
-PHM_2006 = "assets/codes/2006_Prov_CDs_CSDs_Age of PHM.csv"
-HART_2006 = "assets/codes/2006_HART_Consolidated.csv"
-dwelling_type_bedrooms_2021 = "assets/codes/2021_Prov_CDs_CSDs_Dwelling type_Bedrooms.csv"
-dwelling_type_period_2021 = "assets/codes/2021_Prov_CDs_CSDs_Dwelling type_Period.csv"
-
-
-comprehensive_2006 = standardize_dataframe(comprehensive_2006)
-comprehensive_2011 = standardize_dataframe(comprehensive_2011)
-comprehensive_2016 = standardize_dataframe(comprehensive_2016)
-comprehensive_2021 = standardize_dataframe(comprehensive_2021)
-
-PHM_2006 = standardize_dataframe(PHM_2006)
-HART_2006 = standardize_dataframe(HART_2006)
-dwelling_type_bedrooms_2021 = standardize_dataframe(dwelling_type_bedrooms_2021)
-dwelling_type_period_2021 = standardize_dataframe(dwelling_type_period_2021)

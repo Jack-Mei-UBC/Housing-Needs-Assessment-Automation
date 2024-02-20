@@ -2,8 +2,8 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from helpers.data_parsing.data_reader import dwelling_type_period_2021
-from helpers.data_parsing.tables import image_locations, table_locations, colors
+from helpers.data_parsing.table_import import dwelling_type_period_2021
+from helpers.data_parsing.tables import image_locations, table_locations
 from helpers.introduction.table2 import get_table2
 
 
@@ -39,19 +39,29 @@ def get_figure4(cd: int) -> str:
             color='green'
         )
     )
+    # Display each datapoint's percentage on the graph for the secondary y axis
     trace2 = go.Scatter(
         x=df.index,
         y=df["Cumulative Percentage"],
+        text=df["Cumulative Percentage"].apply(lambda a: f"{a:.0%}"),
+        textposition="top center",
         name="Cumulative Percentage",
         yaxis='y2',
+        mode='lines+markers+text',
         marker=dict(
             color='grey'
         )
     )
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
+    # Change primary to show number instead of k
+    # Change secondary y axis to be formatted percentage
+    fig.update_yaxes(tickformat=",.0f")
+    fig.update_yaxes(tickformat=".0%", secondary_y=True)
     fig.add_trace(trace1)
     fig.add_trace(trace2, secondary_y=True)
+
+
     fig['layout'].update(title=title, xaxis=dict(
         tickangle=0,
     ))

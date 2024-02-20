@@ -1,11 +1,9 @@
 import pandas as pd
-from helpers.data_parsing.table_import import comprehensive_2006, comprehensive_2011, comprehensive_2016, \
-    comprehensive_2021
 
 labels = ["Median Age", "Population", "% of population aged 15+", "% of population aged 65+"]
 
 
-def get_table3(cd: int) -> pd.DataFrame:
+def get_table4(cd: int) -> pd.DataFrame:
     df_table3 = pd.DataFrame(
         index=labels,
         columns=[2006, 2011, 2016, 2021]
@@ -53,3 +51,6 @@ def get_table3(cd: int) -> pd.DataFrame:
     # Make percentages actually percent
     df_table3.loc[(labels[2], labels[3]), :] = (df_table3.loc[(labels[2], labels[3]), :]*100).astype(int).astype(str)+"%"
     return df_table3
+
+
+get_table4(1)

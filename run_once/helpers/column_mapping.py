@@ -1,15 +1,5 @@
 # Matching things 1-1 is hell, so we just do a "contains key" search
 # Strictest matchings first, then looser comes later
-class Comparable:
-    def __init__(self, value):
-        self.value = value
-    def compare(self, input):
-        if isinstance(self.value, str):
-            return input in self.value
-        elif isinstance(self.value, list):
-            return any([i in input for i in self.value])
-
-
 col_map = {
     "female lone": "single mom",
     'PHM is a recent immigrant (immigrated between 2011 and 2016)': "recent immigrant",

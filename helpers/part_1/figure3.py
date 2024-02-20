@@ -1,11 +1,10 @@
 import pandas as pd
 import plotly.graph_objects as go
-import numpy as np
 
 import report_input
-from helpers.data_parsing.data_reader import comprehensive_2006, \
+from helpers.data_parsing.table_import import comprehensive_2006, \
     comprehensive_2021, PHM_2006, HART_2006
-from helpers.data_parsing.tables import image_locations, table_locations, colors
+from helpers.data_parsing.tables import image_locations, table_locations
 from helpers.introduction.table2 import get_table2
 
 

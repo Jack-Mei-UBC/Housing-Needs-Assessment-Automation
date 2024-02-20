@@ -6,7 +6,11 @@ import pandas as pd
 # Grabs all the csvs in the assets directory, changing them only to be codes
 all_files = os.listdir("assets")
 csv_files = list(filter(lambda f: f.endswith('.csv'), all_files))
-processed_files = os.listdir("assets/codes")
+
+save_location = "assets/codes/"
+if not os.path.exists(save_location):
+    os.mkdir(save_location)
+processed_files = os.listdir(save_location)
 processed_csv_files = list(filter(lambda f: f.endswith('.csv'), processed_files))
 
 

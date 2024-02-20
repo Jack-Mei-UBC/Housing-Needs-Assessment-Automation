@@ -7,6 +7,8 @@ from helpers.introduction.table2 import get_table2
 from helpers.part_1.figure2 import get_figure2
 from helpers.part_1.figure3 import get_figure3
 from helpers.part_1.figure4 import get_figure4
+from helpers.part_1.figure5 import get_figure5
+from helpers.part_1.figure6 import get_figure6
 from helpers.part_1.table3 import get_table3
 import report_input
 
@@ -31,5 +33,7 @@ def part_1_context(doc: DocxTemplate):
         "figure2": image_to_figure(doc, get_figure2(report_input.community_csd)),
         "figure3": image_to_figure(doc, get_figure3(report_input.relevant_csds[0], report_input.relevant_csds[1])),
         "figure4": image_to_figure(doc, get_figure4(report_input.community_csd)),
+        "figure5": image_to_figure(doc, get_figure5(report_input.community_csd)),
+        "figure6": image_to_figure(doc, get_figure6(report_input.community_csd)),
     }
     return context
