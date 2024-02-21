@@ -26,12 +26,12 @@ def get_figure2(cd: int) -> str:
         for i, index in enumerate(df.index):
             if index == "0 to 14 years":
                 df.at[index, year] = flattened_dfs[year].loc[
-                    cd, [f'{x} to {x + 4} years' for x in range(0, 10, 5)]].sum()
+                    cd, [f'{x} to {x + 4} years' for x in range(0, 14, 5)]].sum()
             elif index == "85+ years":
                 if year == 2006:
                     df.at[index, year] = \
                         flattened_dfs[year].loc[
-                            cd, [f'{x} to {x + 4} years' for x in range(80, 95, 5)] + ['100 years+']].sum()
+                            cd, [f'{x} to {x + 4} years' for x in range(85, 100, 5)] + ['100 years+']].sum()
                 else:
                     if year >= 2016:
                         # There are three indices with the same label due to the names being shared by different

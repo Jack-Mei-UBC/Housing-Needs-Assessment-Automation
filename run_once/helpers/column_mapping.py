@@ -16,15 +16,13 @@ col_map = {
     "Minority household": "minority",
     "Household has at least one person who had at least one or of combined activity limitations reported for Q11a, Q11b, Q11c or Q11f": "disabled",
     "Household has at least one person with activity limitations reported for Q11d and Q11e or combined Q11d and Q11e health issues": "health issues",
-    "Owner": "owner",
-    "Renter": "renter",
     "Not subsidized housing": "unsubsidized",
     "Subsidized housing": "subsidized",
     "85 years and over": "85 years+",
     '75 years and over': '75 years+',
 }
 
-fuzzy_col_mapping = {
+fuzzy_regex_col_mapping = {
     "Total - Aboriginal": "total by aboriginal",
     'Total - Private households by Aboriginal household status': "total by aboriginal 2",
     "Total - Private households by visible minority ho": "total by minority",
@@ -40,7 +38,8 @@ fuzzy_col_mapping = {
     'Total - Private households by household family type of the primary household maintainer (PHM)': "total by PHM",
     "tenure and mortgage": "total by ownership",
     'Total - Sex of the primary household maintainer (PHM)': "total by gender PHM",
-    "by household income proportion to AMHI": "total by income",
+    "Total .* by household income proportion to AMHI": "total by income",
+    "Total .*ousehold income": "total by income",
     "by shelter cost proportion to AMHI": "total by shelter cost",
     "by core housing need": "total by CHN",
     'Total - Sex': 'total by gender',  # Technically wrong but right in the context of data
@@ -49,14 +48,17 @@ fuzzy_col_mapping = {
     'Total - Age groups of primary household maintainer': 'total by age of PHM',
     'Total - Period of construction': 'total by construction period',
     'Total - Structural type of dwelling': 'total by structural type',
-    
+    'Total - .*ousehold size': 'total by household size',
+    "(O|o)wner": "owner",
+    "(R|r)enter": "renter",
+
     "1 person": "1 person",
     "2 persons": "2 persons",
     "3 persons": "3 persons",
     "4 persons": "4 persons",
-    "5 or more persons household": "5+ persons",
+    "5 or more persons": "5+ persons",
     "income 20% or": "very low income",
-    "income 121% or": "very high income",
+    "income 121% ": "very high income",
     "income 21% to 50%": "low income",
     "income 51%": "moderate income",
     "income 81% to 120%": "high income",
@@ -92,6 +94,6 @@ fuzzy_col_mapping = {
     'Population, ': 'population',
     'Median age': 'median age',
 }
-key_list = list(fuzzy_col_mapping.keys())
+key_list = list(fuzzy_regex_col_mapping.keys())
 for key in key_list:
-    fuzzy_col_mapping['.*'+key+'.*'] = fuzzy_col_mapping.pop(key)
+    fuzzy_regex_col_mapping['.*' + key + '.*'] = fuzzy_regex_col_mapping.pop(key)

@@ -1,18 +1,17 @@
 from typing import Dict
 
 import pandas as pd
-from helpers.data_parsing.table_import import consolidated_2006, consolidated_2016, consolidated_2021
+from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021
 incomes = ["very low income", "low income", "moderate income", "high income", "very high income"]
 
 
-def get_table4(cd: int) -> pd.DataFrame:
+def get_table5(cd: int) -> pd.DataFrame:
     df = pd.DataFrame(
         index=incomes,
-        columns=[2006, 2016, 2021]
+        columns=[2016, 2021]
     )
 
     tables: Dict[int, pd.DataFrame] = {
-        2006: consolidated_2006,
         2016: consolidated_2016,
         2021: consolidated_2021
     }
@@ -24,15 +23,21 @@ def get_table4(cd: int) -> pd.DataFrame:
         data: pd.Series = tables[year].loc[cd, (total, "total by household size", incomes, "total by CHN")]
         data.index = data.index.get_level_values(2)
         df.loc[:, year] = data
+
+
+    df2 = pd.DataFrame(
+        index=["Equal to & Under 80% AMHI", "Over 80% AMHI"],
+        columns=[2016, 2021, "change"]
+    )
+    df2.loc["Equal to & Under 80% AMHI", :] = df.loc["very low income":"moderate income", :].sum()
+    df2.loc["Over 80% AMHI", :] = df.loc["high income":"very high income", :].sum()
     # Add totals
-    totals = df.sum().to_frame().T
-    df = pd.concat([df, totals])
-    # Calculate % changes between 2006 and 2016, then 2016 to 2021 as new columns
-    df["change"] = (df[2016] - df[2006]) / df[2006] * 100
-    df["change1"] = (df[2021] - df[2016]) / df[2016] * 100
+    df2.loc["Total", :] = df2.sum()
+    #
+    df2["change"] = (df2[2021] - df2[2016]) / df2[2016] * 100
     # Make populations integers
-    df.iloc[:, :3] = df.iloc[:, :3].astype(int)
+    df2.iloc[:, :2] = df2.iloc[:, :2].astype(int)
 
     # Make percentages actually percent
-    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(int).astype(str)+"%"
-    return df
+    df2.iloc[:, 2:] = (df2.iloc[:, 2:]).astype(int).astype(str)+"%"
+    return df2

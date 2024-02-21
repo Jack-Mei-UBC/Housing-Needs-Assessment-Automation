@@ -1,5 +1,5 @@
-community_name = "Burnaby"
-community_csd = 5915025
+community_name = "Lennox and Addington"
+community_csd = 3511
 
 relevant_csds = [
     5915025,
@@ -7,4 +7,4 @@ relevant_csds = [
     5915
 ]
 
-
+percent_CHN_by = "total by CHN"

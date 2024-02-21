@@ -2,7 +2,7 @@ import re
 
 import pandas as pd
 
-from run_once.helpers.column_mapping import col_map, fuzzy_col_mapping
+from run_once.helpers.column_mapping import col_map, fuzzy_regex_col_mapping
 
 
 # Unlike the previous hart project, we're going to use MultiIndex from now on
@@ -23,7 +23,7 @@ def standardize_dataframe(file_name):
     # Each census, the column names are different, so we need to find a way to standardize them
     # I do this by finding common keywords using a predefined mapping
     keys = list(col_map.keys())
-    fuzzy_keys = list(fuzzy_col_mapping.keys())
+    fuzzy_keys = list(fuzzy_regex_col_mapping.keys())
 
     # If this is a multi-indexed column dataframe
     if isinstance(df.columns, pd.MultiIndex):
@@ -33,7 +33,7 @@ def standardize_dataframe(file_name):
                 # First tries fuzzy matching, then exact matching, then gives up and doesn't convert
                 try:
                     new_key = next(key for key in fuzzy_keys if re.match(key, label.strip()))
-                    new_key = fuzzy_col_mapping[new_key]
+                    new_key = fuzzy_regex_col_mapping[new_key]
                 except StopIteration:
                     if label.strip() in keys:
                         new_key = col_map[label.strip()]
@@ -49,7 +49,7 @@ def standardize_dataframe(file_name):
             # First tries fuzzy matching, then exact matching, then gives up and doesn't convert
             try:
                 new_key = next(key for key in fuzzy_keys if re.match(key, label.strip()))
-                new_key = fuzzy_col_mapping[new_key]
+                new_key = fuzzy_regex_col_mapping[new_key]
             except StopIteration:
                 if label.strip() in keys:
                     new_key = col_map[label.strip()]

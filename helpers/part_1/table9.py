@@ -2,17 +2,23 @@ from typing import Dict
 
 import pandas as pd
 from helpers.data_parsing.table_import import consolidated_2006, consolidated_2016, consolidated_2021
-incomes = ["very low income", "low income", "moderate income", "high income", "very high income"]
+
+shelter_cost = [
+    "very low shelter cost",
+    "low shelter cost",
+    "moderate shelter cost",
+    "high shelter cost",
+    "very high shelter cost"
+]
 
 
-def get_table4(cd: int) -> pd.DataFrame:
+def get_table9(cd: int) -> pd.DataFrame:
     df = pd.DataFrame(
-        index=incomes,
-        columns=[2006, 2016, 2021]
+        index=shelter_cost,
+        columns=[2016, 2021]
     )
 
     tables: Dict[int, pd.DataFrame] = {
-        2006: consolidated_2006,
         2016: consolidated_2016,
         2021: consolidated_2021
     }
@@ -21,18 +27,20 @@ def get_table4(cd: int) -> pd.DataFrame:
         labels = list(tables[year].columns.levels[0])
         total = next((value for value in labels if 'total' in value.lower()), None)
         # All totals do the same damn thing, please only keep one in the future
-        data: pd.Series = tables[year].loc[cd, (total, "total by household size", incomes, "total by CHN")]
+        data: pd.Series = tables[year].loc[cd, (total, "total by household size", shelter_cost, "total by CHN")]
         data.index = data.index.get_level_values(2)
         df.loc[:, year] = data
     # Add totals
-    totals = df.sum().to_frame().T
-    df = pd.concat([df, totals])
+    df.loc["Total", :] = df.sum()
     # Calculate % changes between 2006 and 2016, then 2016 to 2021 as new columns
-    df["change"] = (df[2016] - df[2006]) / df[2006] * 100
-    df["change1"] = (df[2021] - df[2016]) / df[2016] * 100
+    df["change"] = (df[2021] - df[2016]) / df[2016] * 100
     # Make populations integers
-    df.iloc[:, :3] = df.iloc[:, :3].astype(int)
+    percent_start = 2
+    df.iloc[:, :percent_start] = df.iloc[:, :percent_start].astype(int)
 
     # Make percentages actually percent
-    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(int).astype(str)+"%"
+    df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(int).astype(str) + "%"
     return df
+
+
+get_table9(1)
