@@ -1,12 +1,12 @@
 import pandas as pd
-
+from helpers.data_parsing.table_import import consolidated_2006, consolidated_2016, consolidated_2021
 labels = ["Median Age", "Population", "% of population aged 15+", "% of population aged 65+"]
 
 
 def get_table4(cd: int) -> pd.DataFrame:
     df_table3 = pd.DataFrame(
         index=labels,
-        columns=[2006, 2011, 2016, 2021]
+        columns=[2006, 2016, 2021]
     )
     df_table3.at[labels[0], 2006] = comprehensive_2006.at[cd, ("total by gender", "median age")]
     df_table3.at[labels[0], 2011] = comprehensive_2011.at[cd, ("total by gender", "median age")]

@@ -11,3 +11,7 @@ PHM_2006 = pd.read_pickle(save_location+"PHM_2006.pkl")
 HART_2006 = pd.read_pickle(save_location+"HART_2006.pkl")
 dwelling_type_bedrooms_2021 = pd.read_pickle(save_location+"dwelling_type_bedrooms_2021.pkl")
 dwelling_type_period_2021 = pd.read_pickle(save_location+"dwelling_type_period_2021.pkl")
+
+consolidated_2006 = pd.read_pickle(save_location+"consolidated_2006.pkl")
+consolidated_2016 = pd.read_pickle(save_location+"consolidated_2016.pkl")
+consolidated_2021 = pd.read_pickle(save_location+"consolidated_2021.pkl")
