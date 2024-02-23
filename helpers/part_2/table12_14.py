@@ -17,7 +17,7 @@ def get_table12_14(cd: int, year: int) -> pd.DataFrame:
     labels = list(tables[year].columns.levels[0])
     total = next((value for value in labels if 'total' in value.lower()), None)
     # Get raw data
-    df: pd.Series = tables[year].loc[cd, (total, "total by household size", income, CHN_status)]
+    df = tables[year].loc[cd, (total, "total by household size", income, CHN_status)]
     df: pd.DataFrame = df.unstack().reset_index(drop=True, level=[0, 1])
     # Calculate totals
     df.loc["Total", :] = df.sum()
@@ -27,20 +27,20 @@ def get_table12_14(cd: int, year: int) -> pd.DataFrame:
     df = df.drop(columns=["total by CHN", "examined for CHN"])
     # Make populations integers
     percent_start = 1
-    df.iloc[:, :percent_start] = df.iloc[:, :percent_start].astype(int)
+    df.iloc[:, :percent_start] = df.iloc[:, :percent_start].astype(int).astype(str)
 
     # Make percentages actually percent
     df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(int).astype(str) + "%"
 
     # Rename index
-    df = df.rename({"CHN": "HHs in CHN"}, axis=0)
+    df = df.rename({"% in CHN": "pctCHN"}, axis=1)
     df = df.rename({
         "very low income": "Very Low",
         "low income": "Low",
         "moderate income": "Moderate",
         "high income": "High",
         "very high income": "Very High"
-    }, axis=1)
+    }, axis=0)
     return df
 
 

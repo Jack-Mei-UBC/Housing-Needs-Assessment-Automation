@@ -88,4 +88,4 @@ def get_figure3(cd: int, cd_compared: int) -> str:
     return file_name + ".png"
 
 
-get_figure3(report_input.relevant_csds[0], report_input.relevant_csds[1])
+get_figure3(report_input.relevant_geo_codes[0], report_input.relevant_geo_codes[1])

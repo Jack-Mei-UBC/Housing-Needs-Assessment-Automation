@@ -15,4 +15,4 @@ def get_income(csd: int):
     return df.iloc[0, 0]
 
 
-print(get_income(1))
+
