@@ -7,8 +7,8 @@ from helpers.data_parsing.tables import image_locations, table_locations
 from helpers.introduction.table2 import get_table2
 
 
-def get_figure4(cd: int) -> str:
-    label = get_table2([cd])
+def get_figure4(geo_code: int) -> str:
+    label = get_table2([geo_code])
     title = f"Housing stock in 2021 by Period of Construction - [{label.at[label.index[0], 'Geography']}]"
     file_name = "figure4"
 
@@ -18,11 +18,11 @@ def get_figure4(cd: int) -> str:
     periods = list(dwelling_data.columns)
     periods.remove(total)
 
-    percentages = dwelling_data.loc[cd, periods]/dwelling_data.at[cd, total]
+    percentages = dwelling_data.loc[geo_code, periods]/dwelling_data.at[geo_code, total]
     # I want it to have cumulative percentage
     for index in range(1,len(percentages)):
         percentages.iat[index] = percentages.iat[index] + percentages.iat[index-1]
-    df = pd.concat([dwelling_data.loc[cd, periods], percentages], axis=1)
+    df = pd.concat([dwelling_data.loc[geo_code, periods], percentages], axis=1)
     df.columns = ["Number of Dwellings", "Cumulative Percentage"]
 
     df.to_csv(table_locations + file_name + ".csv")

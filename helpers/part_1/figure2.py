@@ -7,7 +7,7 @@ from helpers.data_parsing.table_import import comprehensive_2006, comprehensive_
 from helpers.data_parsing.tables import image_locations, table_locations, colors
 
 
-def get_figure2(cd: int) -> str:
+def get_figure2(geo_code: int) -> str:
     title = f"Population by Age, 2006-2021 - [{report_input.community_name}]"
     file_name = "figure2"
     df = pd.DataFrame(
@@ -26,23 +26,23 @@ def get_figure2(cd: int) -> str:
         for i, index in enumerate(df.index):
             if index == "0 to 14 years":
                 df.at[index, year] = flattened_dfs[year].loc[
-                    cd, [f'{x} to {x + 4} years' for x in range(0, 14, 5)]].sum()
+                    geo_code, [f'{x} to {x + 4} years' for x in range(0, 14, 5)]].sum()
             elif index == "85+ years":
                 if year == 2006:
                     df.at[index, year] = \
                         flattened_dfs[year].loc[
-                            cd, [f'{x} to {x + 4} years' for x in range(85, 100, 5)] + ['100 years+']].sum()
+                            geo_code, [f'{x} to {x + 4} years' for x in range(85, 100, 5)] + ['100 years+']].sum()
                 else:
                     if year >= 2016:
                         # There are three indices with the same label due to the names being shared by different
                         # selections of data (thumbs down from me)
-                        df.at[index, year] = flattened_dfs[year].at[cd, '85 years+'].iat[0]
+                        df.at[index, year] = flattened_dfs[year].at[geo_code, '85 years+'].iat[0]
                     else:
-                        df.at[index, year] = flattened_dfs[year].at[cd, '85 years+']
+                        df.at[index, year] = flattened_dfs[year].at[geo_code, '85 years+']
             else:
                 # Scuffed way, but it works.  i or i+1 happens to be equal to the year's first number
                 df.at[index, year] = flattened_dfs[year].loc[
-                    cd, [f'{i}5 to {i}9 years', f'{i + 1}0 to {i + 1}4 years']].sum()
+                    geo_code, [f'{i}5 to {i}9 years', f'{i + 1}0 to {i + 1}4 years']].sum()
 
     df.to_csv(table_locations + file_name + ".csv")
     fig = go.Figure(

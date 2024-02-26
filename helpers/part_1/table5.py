@@ -2,10 +2,10 @@ from typing import Dict
 
 import pandas as pd
 from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021
-incomes = ["very low income", "low income", "moderate income", "high income", "very high income"]
+incomes = ["very low income", "low income", "moderate income", "median income", "high income"]
 
 
-def get_table5(cd: int) -> pd.DataFrame:
+def get_table5(geo_code: int) -> pd.DataFrame:
     df = pd.DataFrame(
         index=incomes,
         columns=[2016, 2021]
@@ -20,7 +20,7 @@ def get_table5(cd: int) -> pd.DataFrame:
         labels = list(tables[year].columns.levels[0])
         total = next((value for value in labels if 'total' in value.lower()), None)
         # All totals do the same damn thing, please only keep one in the future
-        data: pd.Series = tables[year].loc[cd, (total, "total by household size", incomes, "total by CHN")]
+        data: pd.Series = tables[year].loc[geo_code, (total, "total by household size", incomes, "total by CHN")]
         data.index = data.index.get_level_values(2)
         df.loc[:, year] = data
 
@@ -30,7 +30,7 @@ def get_table5(cd: int) -> pd.DataFrame:
         columns=[2016, 2021, "change"]
     )
     df2.loc["Equal to & Under 80% AMHI", :] = df.loc["very low income":"moderate income", :].sum()
-    df2.loc["Over 80% AMHI", :] = df.loc["high income":"very high income", :].sum()
+    df2.loc["Over 80% AMHI", :] = df.loc["median income":"high income", :].sum()
     # Add totals
     df2.loc["Total", :] = df2.sum()
     #

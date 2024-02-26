@@ -27,7 +27,7 @@ def image_to_figure(doc: DocxTemplate, name: str):
     return InlineImage(doc, image_locations + name, width=Inches(6.5), height=Inches(3))
 
 
-# If it's a CSD, return CSD, if it's a CD, return CD, if it's a region its doomed, return region
+# If it's a CSD, return CSD, if it's a geo_code, return geo_code, if it's a region its doomed, return region
 def get_cd_code(geo_code: int) -> int:
     return int(str(geo_code)[0:4])
 
@@ -43,7 +43,7 @@ def get_community_name(geo_code: int) -> str:
     return df.iloc[0, 0]
 
 
-# Return Geography name + CD code
+# Return Geography name + geo_code code
 def get_community_cd(geo_code: int) -> str:
     geo_code = get_cd_code(geo_code)
     return get_community_name(geo_code) + f" ({geo_code})"

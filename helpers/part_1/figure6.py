@@ -6,8 +6,8 @@ from helpers.data_parsing.tables import image_locations, table_locations, bedroo
 from helpers.introduction.table2 import get_table2
 
 
-def get_figure6(cd: int) -> str:
-    label = get_table2([cd])
+def get_figure6(geo_code: int) -> str:
+    label = get_table2([geo_code])
     title = f"2021 Housing stock by Number of Bedrooms, Dwelling Type - [{label.at[label.index[0], 'Geography']}]"
     file_name = "figure6"
 
@@ -23,7 +23,7 @@ def get_figure6(cd: int) -> str:
         'Movable dwelling'
     ]
     # Query dwelling data by relevant housing types multiindex
-    dwelling_data: pd.DataFrame = dwelling_type_bedrooms_2021.loc[cd, (relevant_housing,)].unstack(level=1)
+    dwelling_data: pd.DataFrame = dwelling_type_bedrooms_2021.loc[geo_code, (relevant_housing,)].unstack(level=1)
     dwelling_data = dwelling_data.T
     dwelling_data.loc[:, "Attached, semi-detached, row housing"] = \
         dwelling_data.loc[:, 'Other single-attached house'] \

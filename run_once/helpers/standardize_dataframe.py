@@ -19,7 +19,11 @@ def standardize_dataframe(file_name):
         header_length += 1
 
     df = pd.read_csv(file_name, header=[i for i in range(header_length)], index_col=0, encoding='latin-1')
-    df = df.replace(r'(F|X|x|\.\.)', '0', regex=True).astype(float)
+
+    # All the data is stored as strings, so we need to convert it to floats
+    # Exceptions are the AMHI ones, which are actually strings
+    if "AMHI" not in file_name:
+        df = df.replace(r'(F|X|x|\.\.)', '0', regex=True).astype(float)
     # Each census, the column names are different, so we need to find a way to standardize them
     # I do this by finding common keywords using a predefined mapping
     keys = list(col_map.keys())

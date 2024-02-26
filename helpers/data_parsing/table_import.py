@@ -15,3 +15,7 @@ dwelling_type_period_2021 = pd.read_pickle(save_location+"dwelling_type_period_2
 consolidated_2006 = pd.read_pickle(save_location+"consolidated_2006.pkl")
 consolidated_2016 = pd.read_pickle(save_location+"consolidated_2016.pkl")
 consolidated_2021 = pd.read_pickle(save_location+"consolidated_2021.pkl")
+
+AMHI_2006 = pd.read_pickle(save_location+"AMHI_2006.pkl")
+AMHI_2016 = pd.read_pickle(save_location+"AMHI_2016.pkl")
+AMHI_2021 = pd.read_pickle(save_location+"AMHI_2021.pkl")

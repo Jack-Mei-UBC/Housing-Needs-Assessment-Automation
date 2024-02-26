@@ -3,7 +3,7 @@ import docx.document
 from docx import Document
 
 import report_input
-from helpers.part_2.table12_14 import get_table12_14
+from helpers.part_2.table12_15 import get_table12_15
 from helpers.part_2.table13 import place_table13
 
 context_functions = {

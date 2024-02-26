@@ -6,7 +6,7 @@ from helpers.data_parsing.table_import import consolidated_2016, consolidated_20
 hh_size = ["1 person", "2 persons", "3 persons", "4 persons", "5+ persons"]
 
 
-def get_table6(cd: int) -> pd.DataFrame:
+def get_table6(geo_code: int) -> pd.DataFrame:
     df = pd.DataFrame(
         index=hh_size,
         columns=[2006, 2016, 2021]
@@ -22,7 +22,7 @@ def get_table6(cd: int) -> pd.DataFrame:
         labels = list(tables[year].columns.levels[0])
         total = next((value for value in labels if 'total' in value.lower()), None)
         # All totals do the same damn thing, please only keep one in the future
-        data: pd.Series = tables[year].loc[cd, (total, hh_size, "total by income", "total by CHN")]
+        data: pd.Series = tables[year].loc[geo_code, (total, hh_size, "total by income", "total by CHN")]
         data.index = data.index.get_level_values(1)
         df.loc[:, year] = data
 

@@ -6,8 +6,8 @@ from helpers.data_parsing.tables import image_locations, table_locations, dwelli
 from helpers.introduction.table2 import get_table2
 
 
-def get_figure5(cd: int) -> str:
-    label = get_table2([cd])
+def get_figure5(geo_code: int) -> str:
+    label = get_table2([geo_code])
     title = f"2021 Housing stock by Dwelling Type, Period of Construction - [{label.at[label.index[0], 'Geography']}]"
     file_name = "figure5"
 
@@ -26,7 +26,7 @@ def get_figure5(cd: int) -> str:
         'Movable dwelling'
     ]
     # Group the dwelling types
-    dwelling_data: pd.DataFrame = dwelling_type_period_2021.loc[cd, (periods, relevant_housing)].unstack(level=1)
+    dwelling_data: pd.DataFrame = dwelling_type_period_2021.loc[geo_code, (periods, relevant_housing)].unstack(level=1)
     dwelling_data.loc[:, "Attached, semi-detached, row housing"] = \
         dwelling_data.loc[:, 'Other single-attached house'] \
         + dwelling_data.loc[:, "Semi-detached house"] \

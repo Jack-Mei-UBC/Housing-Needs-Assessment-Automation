@@ -10,6 +10,9 @@ csv_dict = dict(
     consolidated_2006="assets/codes/2006_HART_Consolidated.csv",
     consolidated_2016="assets/codes/2016_HART_Consolidated.csv",
     consolidated_2021="assets/codes/2021_HART_Consolidated.csv",
+    AMHI_2006="assets/codes/2006_HART_AMHI.csv",
+    AMHI_2016="assets/codes/2016_HART_AMHI.csv",
+    AMHI_2021="assets/codes/2021_HART_AMHI.csv",
 )
 
 

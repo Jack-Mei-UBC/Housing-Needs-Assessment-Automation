@@ -13,6 +13,7 @@ def get_table2(csds):
 
     # Add a new column that checks if 'Geo_Code' is equal to 'Region_Code'
     new_df = new_df.assign(lvl=(new_df['Geo_Code'] == relevant_geos['Region_Code'].astype(int)))
+    new_df['lvl'] = new_df['lvl'].astype(str)
     new_df.loc[:, 'lvl'] = new_df.loc[:, 'lvl'].astype(str)
     new_df.loc[new_df['lvl'] == "True", 'lvl'] = "CD"
     new_df.loc[new_df['lvl'] == "False", 'lvl'] = "CSD"

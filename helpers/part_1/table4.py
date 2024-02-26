@@ -1,11 +1,13 @@
 from typing import Dict
 
 import pandas as pd
-from helpers.data_parsing.table_import import consolidated_2006, consolidated_2016, consolidated_2021
-incomes = ["very low income", "low income", "moderate income", "high income", "very high income"]
+from helpers.data_parsing.table_import import consolidated_2006, consolidated_2016, consolidated_2021, \
+    AMHI_2006, AMHI_2016, AMHI_2021
+
+incomes = ["very low income", "low income", "moderate income", "median income", "high income"]
 
 
-def get_table4(cd: int) -> pd.DataFrame:
+def get_table4(geo_code: int) -> pd.DataFrame:
     df = pd.DataFrame(
         index=incomes,
         columns=[2006, 2016, 2021]
@@ -21,7 +23,7 @@ def get_table4(cd: int) -> pd.DataFrame:
         labels = list(tables[year].columns.levels[0])
         total = next((value for value in labels if 'total' in value.lower()), None)
         # All totals do the same damn thing, please only keep one in the future
-        data: pd.Series = tables[year].loc[cd, (total, "total by household size", incomes, "total by CHN")]
+        data: pd.Series = tables[year].loc[geo_code, (total, "total by household size", incomes, "total by CHN")]
         data.index = data.index.get_level_values(2)
         df.loc[:, year] = data
     # Add totals
@@ -34,5 +36,26 @@ def get_table4(cd: int) -> pd.DataFrame:
     df.iloc[:, :3] = df.iloc[:, :3].astype(int)
 
     # Make percentages actually percent
-    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(int).astype(str)+"%"
+    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(int).astype(str) + "%"
     return df
+
+
+AMHI_tables = {
+    2006: AMHI_2006,
+    2016: AMHI_2016,
+    2021: AMHI_2021
+}
+
+
+def get_AMHI(geo_code: int) -> Dict[int, str]:
+    out = {
+        2006: "",
+        2016: "",
+        2021: ""
+    }
+    for year in AMHI_tables.keys():
+        out[year] = AMHI_tables[year].loc[geo_code, "AMHI"]
+
+    return out
+
+get_AMHI(1)

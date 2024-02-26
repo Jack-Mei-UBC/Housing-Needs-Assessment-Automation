@@ -8,8 +8,9 @@ from helpers.part_1.figure3 import get_figure3
 from helpers.part_1.figure4 import get_figure4
 from helpers.part_1.figure5 import get_figure5
 from helpers.part_1.figure6 import get_figure6
+from helpers.part_1.table10 import get_table10
 from helpers.part_1.table3 import get_table3
-from helpers.part_1.table4 import get_table4
+from helpers.part_1.table4 import get_table4, get_AMHI
 from helpers.part_1.table5 import get_table5
 from helpers.part_1.table6 import get_table6
 from helpers.part_1.table7 import get_table7
@@ -23,11 +24,14 @@ def part_1_context(doc: DocxTemplate):
         "table2": df_to_table(get_table2(report_input.relevant_geo_codes)),
         "table3": df_to_table(get_table3(report_input.community_geo_code)),
         "table4": df_to_table(get_table4(report_input.community_geo_code)),
+        "table4help": get_AMHI(report_input.community_geo_code),
         "table5": df_to_table(get_table5(report_input.community_geo_code)),
         "table6": df_to_table(get_table6(report_input.community_geo_code)),
         "table7": df_to_table(get_table7(report_input.community_geo_code)),
         "table8": df_to_table(get_table8(report_input.community_geo_code)),
-        "table9": df_to_table(get_table9(report_input.community_geo_code)),
+        "table9": df_to_table(get_table9(report_input.community_geo_code)[0]),
+        "table9help": get_table9(report_input.community_geo_code)[1],
+        "table10": df_to_table(get_table10(report_input.community_geo_code)),
         "figure2": image_to_figure(doc, get_figure2(report_input.community_geo_code)),
         "figure3": image_to_figure(doc, get_figure3(report_input.relevant_geo_codes[0], report_input.relevant_geo_codes[1])),
         "figure4": image_to_figure(doc, get_figure4(report_input.community_geo_code)),

@@ -16,8 +16,12 @@ processed_csv_files = list(filter(lambda f: f.endswith('.csv'), processed_files)
 
 def find_code(name):
     pattern = r"\(\d+\)"
-    if name in quirky_regions.keys():
-        name = quirky_regions[name]
+    try:
+        new_key = next(key for key in fuzzy_keys if re.match(key, name.strip()))
+        name = fuzzy_quirky_regions[new_key[2:-2]]
+    except StopIteration:
+        if name in quirky_regions.keys():
+            name = quirky_regions[name]
     code = re.findall(pattern, name)[0]
     code = code[1:-1]
     return code
@@ -27,6 +31,26 @@ copy_existing_index = [
     '2021_Prov_CDs_CSDs_Dwelling type_Bedrooms.csv',
     '2021_Prov_CDs_CSDs_Dwelling type_Period.csv',
 ]
+
+fuzzy_quirky_regions = {
+    "Canada": 'Canada (1) 20000 (  4.3%)',
+    "Ontario 20010": "Ontario (35) 20010 (  5.0%)",
+    'British Columbia 21010 ': 'British Columbia (59) 21010 (  7.5%)',
+    'Alberta 21010 (  5.8%)': 'Alberta (48) 21010 (  5.8%)',
+    'Manitoba 00010 (  5.0%)': 'Manitoba (46) 00010 (  5.0%)',
+    'Saskatchewan 20010 (  5.7%)': 'Saskatchewan (47) 20010 (  5.7%)',
+    'Quebec 21010 (  5.6%)': 'Quebec (24) 21010 (  5.6%)',
+    'Newfoundland and Labrador 00000 (  4.2%)': 'Newfoundland and Labrador (10) 00000 (  4.2%)',
+    'Prince Edward Island 00000': 'Prince Edward Island (11) 00000 (  4.0%)',
+    'New Brunswick 00000': 'New Brunswick (13) 00000 (  4.1%)',
+    'Nova Scotia 01000': 'Nova Scotia (12) 01000 (  4.7%)',
+    'Yukon 00010': 'Yukon (60) 00010 (  7.2%)',
+    'Northwest Territories 00000': 'Northwest Territories (61) 00000 (  4.7%)',
+    'Nunavut 00010': 'Nunavut 00010 (62) (  5.9%)',
+}
+fuzzy_keys = fuzzy_quirky_regions.keys()
+fuzzy_keys = [f".*{key}.*" for key in fuzzy_keys]
+
 quirky_regions = {
     "Ontario 20010 (  5.0%)": "Ontario (35) 20010 (  5.0%)",
     'British Columbia 21010 (  7.5%)': 'British Columbia (59) 21010 (  7.5%)',

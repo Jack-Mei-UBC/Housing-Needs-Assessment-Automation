@@ -8,10 +8,10 @@ from helpers.data_parsing.tables import image_locations, table_locations
 from helpers.introduction.table2 import get_table2
 
 
-def get_figure3(cd: int, cd_compared: int) -> str:
+def get_figure3(geo_code: int, cd_compared: int) -> str:
     title = f"Headship rate by age group, 2006 vs. 2021"
     file_name = "figure3"
-    cd_list = [cd, cd_compared]
+    cd_list = [geo_code, cd_compared]
     years = [2006, 2021]
 
     df = pd.DataFrame(
@@ -76,7 +76,7 @@ def get_figure3(cd: int, cd_compared: int) -> str:
             fig.add_trace(go.Scatter(
                 x=df.index,
                 y=df.loc[:, (year, code)],
-                name=f'{row.at[row.index[0],"Geography"]} - {year}',
+                name=f'{row.at[row.index[0], "Geography"]} - {year}',
                 line={"shape": "spline"},
                 # marker={"color": colors[year]}
             ))

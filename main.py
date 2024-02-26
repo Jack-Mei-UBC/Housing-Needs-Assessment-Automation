@@ -8,7 +8,7 @@ from helpers.part_2_context import part_2_context
 
 # Import tables here so when we fork the processes later for multiprocessing, the tables are already loaded
 import helpers.data_parsing.table_import  # noqa
-import run_once.table_import_consolidated  # noqa
+
 
 template_name = "hart_template.docx"
 doc = DocxTemplate(template_name)
