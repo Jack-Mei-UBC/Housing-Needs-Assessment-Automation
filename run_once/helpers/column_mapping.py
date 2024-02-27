@@ -3,19 +3,31 @@
 col_map = {
     "female lone": "single mom",
     'PHM is a recent immigrant (immigrated between 2011 and 2016)': "recent immigrant",
+    'Recent immigrant status of the PHM (2016 to 2021)': "recent immigrant",
     'Visible Minority households': "visible minority",
+    'Visible minority household': "visible minority",
     "PHM immigrated with a refugee status": "refugee immigrant",
+    'Refugee admission category of the PHM': "refugee immigrant",
     "PHM is a female lone-parent": "single mom",
+    'Female lone parent PHM': "single mom",
     "PHM is female": "female PHM",
+    'Women+ status of the PHM': "female PHM",  # well technically no, but for the sake for consistency yes
     "Aboriginal household status": "aboriginal",
-    'PHM is between 65 years and over': "PHM 65+",
-    'PHM is between 85 years and over': "PHM 85+",
+    'Indigenous household': "aboriginal",  # Why do you change the wording used every 5 years
+    # The bastards use the same labels so now I have to too, even though its different contexts
+    'PHM is between 65 years and over': "65 years+",
+    '65 years and over': '65 years+',
+    'PHM is between 85 years and over': "85 years+",
     'PHM is under 24 years': "under 24",
+    'Under 24 years': "under 24",
     "PHM is Black": "black",
+    'Black': 'black',
     "minority household": "minority",
     "Minority household": "minority",
     "Household has at least one person who had at least one or of combined activity limitations reported for Q11a, Q11b, Q11c or Q11f": "disabled",
+    'Household has at least one person who had at least one activity limitations reported for (Q11a, Q11b, Q11c and Q11f)': "disabled",
     "Household has at least one person with activity limitations reported for Q11d and Q11e or combined Q11d and Q11e health issues": "health issues",
+    'Household has at least one person who had at least one activity limitations reported for (Q11d and Q11e)': "health issues",
     "Not subsidized housing": "unsubsidized",
     "Subsidized housing": "subsidized",
     "85 years and over": "85 years+",
@@ -31,6 +43,8 @@ col_map = {
     "Affordable shelter cost: Moderate Income": "moderate shelter cost",
     "Affordable shelter cost: Median Income": "median shelter cost",
     "Affordable shelter cost: High Income": "high shelter cost",
+    "With mortgage": "with mortgage",
+    "Without mortgage": "without mortgage",
 }
 
 fuzzy_regex_col_mapping = {
@@ -45,7 +59,8 @@ fuzzy_regex_col_mapping = {
     "Total - Private households by presence of at least one or of the combined activity limitations (Q11a, Q11b, Q11c or Q11f or combined)": "total by disability",
     'Total \x96 Private households by presence of at least one or of the combined activity limitations (Q11d or Q11e or combined)': "total by disability 2",
     "Private households by presence of at least one or of the combined activity limitations (Q11d or Q11e or combined)": "total by disability 3",
-    "Total - Private households by tenure including presence of mortgage payments and subsidized housing": "total by subsidized housing",
+    "Total - Private households by tenure including presence of mortgage payments and subsidized housing": "total by tenure",
+    "Total - Private households by tenure": "total by tenure",
     'Total - Private households by household family type of the primary household maintainer (PHM)': "total by PHM",
     "tenure and mortgage": "total by ownership",
     'Total - Sex of the primary household maintainer (PHM)': "total by gender PHM",

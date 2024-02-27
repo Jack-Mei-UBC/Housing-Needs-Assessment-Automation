@@ -19,3 +19,6 @@ consolidated_2021 = pd.read_pickle(save_location+"consolidated_2021.pkl")
 AMHI_2006 = pd.read_pickle(save_location+"AMHI_2006.pkl")
 AMHI_2016 = pd.read_pickle(save_location+"AMHI_2016.pkl")
 AMHI_2021 = pd.read_pickle(save_location+"AMHI_2021.pkl")
+
+tenure_2016 = pd.read_pickle(save_location+"tenure_2016.pkl")
+tenure_2021 = pd.read_pickle(save_location+"tenure_2021.pkl")

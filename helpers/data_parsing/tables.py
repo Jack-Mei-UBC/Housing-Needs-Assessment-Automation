@@ -31,3 +31,8 @@ bedroom_colors = {
 
 engine = create_engine(f'sqlite:///assets/hart2021.db')
 mapped_geo_code = pd.read_sql_table('geocodes_integrated', engine.connect())
+partners = pd.read_sql_table('partners', engine.connect())
+bedrooms = pd.read_sql_table('bedrooms', engine.connect())
+bedrooms = bedrooms.set_index("Geography")  # God I hate how lgeo used names instead of geocodes to index
+projections = pd.read_sql_table('csd_hh_projections', engine.connect())
+projections = projections.set_index("Geo_Code")
