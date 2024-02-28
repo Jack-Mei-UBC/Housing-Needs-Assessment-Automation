@@ -22,3 +22,5 @@ AMHI_2021 = pd.read_pickle(save_location+"AMHI_2021.pkl")
 
 tenure_2016 = pd.read_pickle(save_location+"tenure_2016.pkl")
 tenure_2021 = pd.read_pickle(save_location+"tenure_2021.pkl")
+
+income_bedroom_2021 = pd.read_pickle(save_location+"income_bedroom_2021.pkl")
