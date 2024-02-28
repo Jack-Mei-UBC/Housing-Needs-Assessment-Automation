@@ -1,7 +1,7 @@
 from docxtpl import DocxTemplate
 
 import report_input
-from helpers.context_helpers import df_to_table
+from helpers.context_helpers import df_to_table, df_to_table_without_label, df_to_table_grouped
 from helpers.part_1.part_2_community_names import community_names
 from helpers.part_2.table11 import get_table11
 from helpers.part_2.table12_15 import get_table12_15
@@ -39,7 +39,7 @@ def part_2_context(doc: DocxTemplate):
         "table24": df_to_table(get_table24_27(report_input.community_geo_code, 2016)),
         "table25": df_to_table(get_table25(report_input.part_2_geo_codes, 2016)),
         "table26": df_to_table(get_table24_27(report_input.community_geo_code, 2021)),
-        "table27": df_to_table(get_table25(report_input.part_2_geo_codes, 2021)),
+        "table27": df_to_table_grouped(get_table25(report_input.part_2_geo_codes, 2021)),
 
     }
     return context

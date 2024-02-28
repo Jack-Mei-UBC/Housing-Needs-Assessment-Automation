@@ -35,4 +35,7 @@ partners = pd.read_sql_table('partners', engine.connect())
 bedrooms = pd.read_sql_table('bedrooms', engine.connect())
 bedrooms = bedrooms.set_index("Geography")  # God I hate how lgeo used names instead of geocodes to index
 projections = pd.read_sql_table('csd_hh_projections', engine.connect())
+# Drop nan rows
+projections = projections.dropna()
+projections = projections.astype({"Geo_Code": int})
 projections = projections.set_index("Geo_Code")

@@ -30,28 +30,29 @@ for i in range(len(df.columns.levels)):
 incomes = ['very low income', 'low income', 'moderate income', 'median income', 'high income']
 beds = [1, 2, 3, 4, 5]
 
-# We only care about the total amount, not CHN or whatever
-labels = list(df.columns.levels[0])
-total = next((value for value in labels if 'total' in value.lower()), None)
-df = df.xs(total, level=0, axis=1)
+# We only care about CHN
 
 
 # Calculate the number of missing bedrooms using the HNA methodology listed on the website
 def add_columns(row: pd.Series):
     # Generate the output row that we append into our current SQL table
-    output = pd.Series(index=pd.MultiIndex.from_product([beds, incomes], names=['bedrooms', 'income']))
+    CHN = 'CHN'
+    total = 'Total'
+    CHN_list = [CHN, total]
+    output = pd.Series(index=pd.MultiIndex.from_product([beds, CHN_list, incomes], names=['bedrooms', 'chn status', 'income']))
     output.iloc[:] = 0
     # Our current bedroom count x income matrix but flattened
 
     # Fill HH type x HH size matrix
-    for i, income in enumerate(row.index.levels[1]):
-        # Iterate through housing type x hh size matrix at each income level to generate bedroom count x income matrix
-        for type in row.index.levels[0]:  # Index is Housing Type
-            for hh_size in row.index.levels[2]:  # Columns are HH size
-                bed = bedroom_map(type, hh_size)
-                if bed < 1 or bed > 5:
-                    continue
-                output[(bed, incomes[i])] += row[type, income, hh_size]
+    for c_i, CHN_status in enumerate(row.index.levels[0]):
+        for i, income in enumerate(row.index.levels[2]):
+            # Iterate through housing type x hh size matrix at each income level to generate bedroom count x income matrix
+            for type in row.index.levels[1]:  # Index is Housing Type
+                for hh_size in row.index.levels[3]:  # Columns are HH size
+                    bed = bedroom_map(type, hh_size)
+                    if bed < 1 or bed > 5:
+                        continue
+                    output[(bed, CHN_list[c_i], incomes[i])] += row[CHN_status, type, income, hh_size]
 
     return output
 

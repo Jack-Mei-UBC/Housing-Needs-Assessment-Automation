@@ -12,24 +12,8 @@ def get_figure4(geo_code: int) -> str:
     title = f"Housing stock in 2021 by Period of Construction - [{label.at[label.index[0], 'Geography']}]"
     file_name = "figure4"
 
-    dwelling_data = dwelling_type_period_2021.xs('total by structural type', axis=1, level=1)
-    # get percentage built
-    total = "total by construction period"
-    periods = list(dwelling_data.columns)
-    periods.remove(total)
-
-    percentages = dwelling_data.loc[geo_code, periods]/dwelling_data.at[geo_code, total]
-    # I want it to have cumulative percentage
-    for index in range(1,len(percentages)):
-        percentages.iat[index] = percentages.iat[index] + percentages.iat[index-1]
-    df = pd.concat([dwelling_data.loc[geo_code, periods], percentages], axis=1)
-    df.columns = ["Number of Dwellings", "Cumulative Percentage"]
-
+    df = figure4_helper(geo_code)
     df.to_csv(table_locations + file_name + ".csv")
-
-    # Rename the " to " to "-\n" to save space, also the or to keep things similar
-    df.index = [x.replace(" to ", "-<br>") for x in list(df.index)]
-    df.index = [x.replace(" or", " or<br>") for x in list(df.index)]
 
     trace1 = go.Bar(
         x=df.index,
@@ -72,3 +56,25 @@ def get_figure4(geo_code: int) -> str:
     ))
     fig.write_image(image_locations + file_name + ".png", width=1000, height=500)
     return file_name + ".png"
+
+
+def figure4_helper(geo_code: int) -> pd.DataFrame:
+    dwelling_data = dwelling_type_period_2021.xs('total by structural type', axis=1, level=1)
+    # get percentage built
+    total = "total by construction period"
+    periods = list(dwelling_data.columns)
+    periods.remove(total)
+
+    percentages = dwelling_data.loc[geo_code, periods] / dwelling_data.at[geo_code, total]
+    # I want it to have cumulative percentage
+    for index in range(1, len(percentages)):
+        percentages.iat[index] = percentages.iat[index] + percentages.iat[index - 1]
+    df = pd.concat([dwelling_data.loc[geo_code, periods], percentages], axis=1)
+    df.columns = ["Number of Dwellings", "Cumulative Percentage"]
+
+    # Rename the " to " to "-\n" to save space, also the or to keep things similar
+    df.index = [x.replace(" to ", "-<br>") for x in list(df.index)]
+    df.index = [x.replace(" or", " or<br>") for x in list(df.index)]
+
+    return df
+

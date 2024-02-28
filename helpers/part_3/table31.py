@@ -4,8 +4,10 @@ from helpers.context_helpers import get_community_name
 from helpers.data_parsing.table_import import income_bedroom_2021
 
 
-def get_table31(geo_code: int):
-    df: pd.DataFrame = income_bedroom_2021.loc[geo_code, :].unstack()
+def get_table31(geo_code: int) -> pd.DataFrame:
+    df: pd.DataFrame = income_bedroom_2021.loc[geo_code, (slice(None), "Total", slice(None))]
+    # remove redundant chn status index then unstack
+    df = df.droplevel(1).unstack()
     df = df[["very low income", "low income", "moderate income", "median income", "high income"]]
     df['Total'] = df.sum(axis=1)
     df.loc['Total'] = df.sum()
@@ -19,5 +21,3 @@ def get_table31(geo_code: int):
     df = df.astype(int)
     return df
 
-
-get_table31(1)

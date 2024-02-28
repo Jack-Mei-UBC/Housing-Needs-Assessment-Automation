@@ -2,6 +2,7 @@ import pandas as pd
 
 from helpers.context_helpers import get_community_name
 from helpers.data_parsing.tables import projections
+from helpers.part_3.table31 import get_table31
 
 
 def get_table30(geo_code: int):
@@ -23,7 +24,8 @@ def get_table30(geo_code: int):
         index={1: "1", 2: "2", 3: "3", 4: "4", 5: "5+"}
     )
     df = df.astype(int)
+
+    df_31 = get_table31(geo_code)
+    df = df+df_31
     return df
 
-
-get_table30(1)

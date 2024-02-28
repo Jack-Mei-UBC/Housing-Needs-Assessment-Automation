@@ -10,8 +10,30 @@ from helpers.data_parsing.tables import image_locations, table_locations, colors
 def get_figure2(geo_code: int) -> str:
     title = f"Population by Age, 2006-2021 - [{report_input.community_name}]"
     file_name = "figure2"
+
+    fig = go.Figure(
+        layout={
+            "title": title
+        },
+    )
+    df = figure2_helper(geo_code)
+    df.to_csv(table_locations + file_name + ".csv")
+    for year in range(2006, 2022, 5):
+        fig.add_trace(go.Scatter(
+            x=df.index,
+            y=df.loc[:, year],
+            name=str(year),
+            line={"shape": "spline"},
+            marker={"color": colors[year]}
+        ))
+    fig.update_yaxes(rangemode="tozero", tickformat=",.0f")
+    fig.write_image(image_locations + file_name + ".png", width=1000, height=500)
+    return file_name + ".png"
+
+
+def figure2_helper(geo_code: int) -> pd.DataFrame:
     df = pd.DataFrame(
-        index=["0 to 14 years"] + [f"{x} to {x + 9} years" for x in range(15, 75, 10)] + ["85+ years"],
+        index=["0 to 14 years"] + [f"{x} to {x + 9} years" for x in range(15, 85, 10)] + ["85+ years"],
         columns=[2006, 2011, 2016, 2021]
     )
 
@@ -43,22 +65,7 @@ def get_figure2(geo_code: int) -> str:
                 # Scuffed way, but it works.  i or i+1 happens to be equal to the year's first number
                 df.at[index, year] = flattened_dfs[year].loc[
                     geo_code, [f'{i}5 to {i}9 years', f'{i + 1}0 to {i + 1}4 years']].sum()
+    return df
 
-    df.to_csv(table_locations + file_name + ".csv")
-    fig = go.Figure(
-        layout={
-            "title": title
-        },
-    )
-    for year in range(2006, 2022, 5):
-        fig.add_trace(go.Scatter(
-            x=df.index,
-            y=df.loc[:, year],
-            name=str(year),
-            line={"shape": "spline"},
-            marker={"color": colors[year]}
-        ))
-    fig.update_yaxes(rangemode="tozero", tickformat=",000")
-    fig.write_image(image_locations + file_name + ".png", width=1000, height=500)
-    return file_name + ".png"
 
+get_figure2(report_input.community_geo_code)

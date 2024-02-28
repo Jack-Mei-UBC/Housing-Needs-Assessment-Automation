@@ -33,7 +33,7 @@ def part_1_context(doc: DocxTemplate):
         "table9help": get_table9(report_input.community_geo_code)[1],
         "table10": df_to_table(get_table10(report_input.community_geo_code)),
         "figure2": image_to_figure(doc, get_figure2(report_input.community_geo_code)),
-        "figure3": image_to_figure(doc, get_figure3(report_input.relevant_geo_codes[0], report_input.relevant_geo_codes[1])),
+        "figure3": image_to_figure(doc, get_figure3(report_input.relevant_geo_codes)),
         "figure4": image_to_figure(doc, get_figure4(report_input.community_geo_code)),
         "figure5": image_to_figure(doc, get_figure5(report_input.community_geo_code)),
         "figure6": image_to_figure(doc, get_figure6(report_input.community_geo_code)),

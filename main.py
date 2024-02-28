@@ -8,7 +8,7 @@ from helpers.part_2_context import part_2_context
 
 # Import tables here so when we fork the processes later for multiprocessing, the tables are already loaded
 import helpers.data_parsing.table_import  # noqa
-
+from helpers.part_3_context import part_3_context
 
 template_name = "hart_template.docx"
 doc = DocxTemplate(template_name)
@@ -19,5 +19,6 @@ context = {
 }
 context.update(part_1_context(doc))
 context.update(part_2_context(doc))
+context.update(part_3_context(doc))
 doc.render(context)
 doc.save("generated_doc.docx")

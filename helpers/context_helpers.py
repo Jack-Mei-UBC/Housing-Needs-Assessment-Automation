@@ -1,26 +1,42 @@
 import pandas as pd
+import re
 from docx.shared import Inches
 from docxtpl import DocxTemplate, InlineImage
 
 from helpers.data_parsing.tables import image_locations, engine
 
-
+num_pattern = r"-?\d+"
 def df_to_table(df: pd.DataFrame):
     out = []
     for index in list(df.index):
-        _dict = df.loc[index].to_dict()
+        temp = df.loc[index].apply(lambda num: f"{int(num):,}" if re.fullmatch(num_pattern, str(num)) else num)
+        _dict = temp.to_dict()
         _dict['label'] = index
         out.append(_dict)
     return out
 
 
-def df_to_table_with_column_label(df: pd.DataFrame):
+def df_to_table_without_label(df: pd.DataFrame):
     out = []
-    out.append([]+df.columns.to_list())
     for index in list(df.index):
-        _dict = df.loc[index].to_dict()
-        _dict['label'] = index
-        out.append(_dict)
+        temp = df.loc[index].apply(lambda num: f"{int(num):,}" if re.fullmatch(num_pattern, str(num)) else num)
+        row = {
+            "label": index,
+            "cols": list(temp)
+        }
+        out.append(row)
+    return out
+
+def df_to_table_grouped(df: pd.DataFrame):
+    out = []
+    for index in list(df.index):
+        temp = df.loc[index].apply(lambda num: f"{int(num):,}" if re.fullmatch(num_pattern, str(num)) else num)
+        in_CHN = temp.iloc[0::2]
+        pct_CHN = temp.iloc[1::2]
+        row = {
+            "label": index,
+        }
+        out.append(row)
     return out
 
 def image_to_figure(doc: DocxTemplate, name: str):

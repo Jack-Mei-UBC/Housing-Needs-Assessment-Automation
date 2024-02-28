@@ -2,6 +2,7 @@ import pandas as pd
 
 from helpers.context_helpers import get_community_name
 from helpers.data_parsing.tables import projections
+from helpers.part_3.table31 import get_table31
 
 
 def get_table28(geo_code: int):
@@ -21,9 +22,12 @@ def get_table28(geo_code: int):
         columns={'20% or under': 'veryLow', '21% to 50%': 'low', '51% to 80%': 'moderate',
                  '81% to 120%': 'median', '121% or more': 'high'})
     df = df.rename(
-        index={5: "5+"}
+        index={1: "1", 2: "2", 3: "3", 4: "4", 5: "5+"}
     )
+    df = df.astype(int)
+
+    df_31 = get_table31(geo_code)
+    # We can't have predictions go negative so cap it off at 0
+    negatives = -df_31 > df
+    df[negatives] = -df_31[negatives]
     return df
-
-
-get_table28(1)
