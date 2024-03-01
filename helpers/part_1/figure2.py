@@ -8,7 +8,7 @@ from helpers.data_parsing.tables import image_locations, table_locations, colors
 
 
 def get_figure2(geo_code: int) -> str:
-    title = f"Population by Age, 2006-2021 - [{report_input.community_name}]"
+    title = f"Population by Age, 2006-2021 - [{report_input.community_cd_name}]"
     file_name = "figure2"
 
     fig = go.Figure(
@@ -68,4 +68,4 @@ def figure2_helper(geo_code: int) -> pd.DataFrame:
     return df
 
 
-get_figure2(report_input.community_geo_code)
+get_figure2(report_input.community_cd)

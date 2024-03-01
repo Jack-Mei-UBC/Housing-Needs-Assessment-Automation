@@ -25,4 +25,4 @@ def get_table38(geo_code_list: List[int]):
     return df
 
 
-get_table38(report_input.part_2_geo_codes)
+get_table38(report_input.geo_code_list)

@@ -13,6 +13,9 @@ def get_figure4(geo_code: int) -> str:
     file_name = "figure4"
 
     df = figure4_helper(geo_code)
+    # Rename the " to " to "-\n" to save space, also the or to keep things similar
+    df.index = [x.replace(" to ", "-<br>") for x in list(df.index)]
+    df.index = [x.replace(" or", " or<br>") for x in list(df.index)]
     df.to_csv(table_locations + file_name + ".csv")
 
     trace1 = go.Bar(
@@ -71,10 +74,6 @@ def figure4_helper(geo_code: int) -> pd.DataFrame:
         percentages.iat[index] = percentages.iat[index] + percentages.iat[index - 1]
     df = pd.concat([dwelling_data.loc[geo_code, periods], percentages], axis=1)
     df.columns = ["Number of Dwellings", "Cumulative Percentage"]
-
-    # Rename the " to " to "-\n" to save space, also the or to keep things similar
-    df.index = [x.replace(" to ", "-<br>") for x in list(df.index)]
-    df.index = [x.replace(" or", " or<br>") for x in list(df.index)]
 
     return df
 

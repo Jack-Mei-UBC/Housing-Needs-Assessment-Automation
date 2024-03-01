@@ -1,5 +1,6 @@
 from typing import Dict
 
+import numpy as np
 import pandas as pd
 from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021
 from report_input import percent_CHN_by
@@ -23,6 +24,7 @@ def get_table12_15(geo_code: int, year: int) -> pd.DataFrame:
     df.loc["Total", :] = df.sum()
     # Calulate % CHN by income
     df.loc[:, "% in CHN"] = df.loc[:, "CHN"] / df.loc[:, percent_CHN_by] * 100
+    df = df.replace(np.NaN, 0)
     # Drop the unneeded columns
     df = df.drop(columns=["total by CHN", "examined for CHN"])
     # Make populations integers

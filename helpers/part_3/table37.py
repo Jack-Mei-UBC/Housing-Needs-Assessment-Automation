@@ -40,4 +40,4 @@ def get_table37_helper(geo_code: int):
     return series
 
 
-get_table37(report_input.part_2_geo_codes)
+get_table37(report_input.geo_code_list)

@@ -39,4 +39,4 @@ def get_table40_helper(geo_code: int):
     return row
 
 
-get_table40(report_input.part_2_geo_codes)
+get_table40(report_input.geo_code_list)

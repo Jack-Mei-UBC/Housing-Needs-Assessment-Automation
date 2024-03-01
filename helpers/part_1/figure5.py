@@ -10,7 +10,48 @@ def get_figure5(geo_code: int) -> str:
     label = get_table2([geo_code])
     title = f"2021 Housing stock by Dwelling Type, Period of Construction - [{label.at[label.index[0], 'Geography']}]"
     file_name = "figure5"
+    dwelling_data = figure5_helper(geo_code)
+    dwelling_data = dwelling_data.div(dwelling_data.sum(axis=1), axis=0)
 
+    dwelling_data.to_csv(table_locations + file_name + ".csv")
+    # Create the plotly figure as a horizontal 100 stacked bar chart
+    # Each row is a period, with the fraction of housing types built in that period
+    # stack the charts for each period
+    fig = go.Figure()
+    for dwelling_type in dwelling_data.columns:
+        fig.add_trace(go.Bar(
+            y=dwelling_data.index,
+            x=dwelling_data[dwelling_type],
+            name=dwelling_type,
+            orientation='h',
+            marker_color=dwelling_colors[dwelling_type],
+        ))
+
+    # Add the title and labels
+    # Show proportion axis as percentage
+    fig.update_layout(
+        title=title,
+        xaxis_title="Proportion of all dwellings",
+        xaxis_tickformat=".0%",
+        yaxis_title="Period of construction",
+        barmode="stack",
+        legend=dict(
+            orientation="h",
+        ),
+
+    )
+
+    # Move legend to bottom of plot
+    fig.update_layout(
+        legend=dict(
+            y=-0.2,
+        )
+    )
+    fig.write_image(image_locations + file_name + ".png", width=1000, height=500)
+    return file_name + ".png"
+
+
+def figure5_helper(geo_code: int) -> pd.DataFrame:
     # get percentage built
     total = "total by construction period"
     periods = list(dwelling_type_period_2021.columns.levels[0])
@@ -48,42 +89,4 @@ def get_figure5(geo_code: int) -> str:
     ])
 
     # Get the percentage built by period
-    dwelling_data = dwelling_data.div(dwelling_data.sum(axis=1), axis=0)
-
-    # Create the plotly figure as a horizontal 100 stacked bar chart
-    # Each row is a period, with the fraction of housing types built in that period
-    # stack the charts for each period
-    fig = go.Figure()
-    for dwelling_type in dwelling_data.columns:
-        fig.add_trace(go.Bar(
-            y=dwelling_data.index,
-            x=dwelling_data[dwelling_type],
-            name=dwelling_type,
-            orientation='h',
-            marker_color=dwelling_colors[dwelling_type],
-        ))
-
-    # Add the title and labels
-    # Show proportion axis as percentage
-    fig.update_layout(
-        title=title,
-        xaxis_title="Proportion of all dwellings",
-        xaxis_tickformat=".0%",
-        yaxis_title="Period of construction",
-        barmode="stack",
-        legend=dict(
-            orientation="h",
-        ),
-
-    )
-
-    # Move legend to bottom of plot
-    fig.update_layout(
-        legend=dict(
-            y=-0.2,
-        )
-    )
-    fig.write_image(image_locations + file_name + ".png", width=1000, height=500)
-    dwelling_data.to_csv(table_locations + file_name + ".csv")
-    return file_name + ".png"
-
+    return dwelling_data
