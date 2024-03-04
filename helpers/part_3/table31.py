@@ -20,3 +20,5 @@ def get_table31(geo_code: int) -> pd.DataFrame:
     df = df.astype(int)
     return df
 
+
+get_table31(3511)

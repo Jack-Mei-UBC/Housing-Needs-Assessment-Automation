@@ -34,10 +34,10 @@ def get_table7(geo_code: int) -> pd.DataFrame:
     df.iloc[:slice_loc, :] = df.iloc[:slice_loc, :].astype(int)
 
     # Make percentages actually percent
-    df.iloc[slice_loc:, :] = (df.iloc[slice_loc:, :]).astype(int).astype(str) + "%"
+    df.iloc[slice_loc:, :] = (df.iloc[slice_loc:, :]).astype(float).round().astype(int).astype(str) + "%"
 
     df = df.rename({"owner": "Owner HHs", "renter": "Renter HHs"}, axis=0)
     return df
 
 
-get_table7(1)
+# get_table7(3511)

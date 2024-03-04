@@ -3,7 +3,7 @@ from typing import Dict
 import pandas as pd
 from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021, consolidated_2006
 
-hh_size = ["1 person", "2 persons", "3 persons", "4 persons", "5+ persons"]
+hh_size = ["1 person", "2 persons", "3 persons", "4 persons", "5+ persons", "total by household size"]
 
 
 def get_table6(geo_code: int) -> pd.DataFrame:
@@ -27,7 +27,7 @@ def get_table6(geo_code: int) -> pd.DataFrame:
         df.loc[:, year] = data
 
     # Add totals
-    df.loc["Total", :] = df.sum()
+    # df.loc["Total", :] = df.sum()
     # Calculate % changes between 2006 and 2016, then 2016 to 2021 as new columns
     df["change"] = (df[2016] - df[2006]) / df[2006] * 100
     df["change1"] = (df[2021] - df[2016]) / df[2016] * 100
@@ -35,6 +35,8 @@ def get_table6(geo_code: int) -> pd.DataFrame:
     df.iloc[:, :3] = df.iloc[:, :3].astype(int)
 
     # Make percentages actually percent
-    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(int).astype(str) + "%"
+    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(float).round().astype(int).astype(str) + "%"
     return df
-get_table6(1)
+
+
+# get_table6(3511)

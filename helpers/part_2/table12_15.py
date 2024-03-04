@@ -6,7 +6,7 @@ from helpers.data_parsing.table_import import consolidated_2016, consolidated_20
 from report_input import percent_CHN_by
 
 CHN_status = ["total by CHN", "examined for CHN", "CHN"]
-income = ["very low income", "low income", "moderate income", "median income", "high income"]
+income = ["very low income", "low income", "moderate income", "median income", "high income", "total by income"]
 
 
 def get_table12_15(geo_code: int, year: int) -> pd.DataFrame:
@@ -21,7 +21,7 @@ def get_table12_15(geo_code: int, year: int) -> pd.DataFrame:
     df = tables[year].loc[geo_code, (total, "total by household size", income, CHN_status)]
     df: pd.DataFrame = df.unstack().reset_index(drop=True, level=[0, 1])
     # Calculate totals
-    df.loc["Total", :] = df.sum()
+    # df.loc["Total", :] = df.sum()
     # Calulate % CHN by income
     df.loc[:, "% in CHN"] = df.loc[:, "CHN"] / df.loc[:, percent_CHN_by] * 100
     df = df.replace(np.NaN, 0)
@@ -29,6 +29,7 @@ def get_table12_15(geo_code: int, year: int) -> pd.DataFrame:
     df = df.drop(columns=["total by CHN", "examined for CHN"])
     # Make populations integers
     percent_start = 1
+    df.iloc[:, percent_start:] = df.iloc[:, percent_start:].astype(float).round()
     df = df.astype(int).astype(str)
 
     # Make percentages actually percent
@@ -41,9 +42,10 @@ def get_table12_15(geo_code: int, year: int) -> pd.DataFrame:
         "low income": "Low",
         "moderate income": "Moderate",
         "median income": "Median",
-        "high income": "High"
+        "high income": "High",
+        "total by income": "Total",
     }, axis=0)
     return df
 
 
-get_table12_15(1, 2016)
+# get_table12_15(3511, 2016)

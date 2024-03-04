@@ -8,7 +8,8 @@ shelter_cost = [
     "low shelter cost",
     "moderate shelter cost",
     "median shelter cost",
-    "high shelter cost"
+    "high shelter cost",
+    "total by income"
 ]
 
 
@@ -32,11 +33,11 @@ def get_table9(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
         labels = list(tables[year].columns.levels[0])
         total = next((value for value in labels if 'total' in value.lower()), None)
         # All totals do the same damn thing, please only keep one in the future
-        data: pd.Series = tables[year].loc[geo_code, (total, "total by household size", shelter_cost, "total by CHN")]
+        data: pd.Series = tables[year].loc[geo_code, (total, "total by household size", shelter_cost , "total by CHN")]
         data.index = data.index.get_level_values(2)
         df.loc[:, year] = data
     # Add totals
-    df.loc["Total", :] = df.sum()
+    # df.loc["Total", :] = df.sum()
     # Calculate % changes between 2006 and 2016, then 2016 to 2021 as new columns
     df["change"] = (df[2021] - df[2016]) / df[2016] * 100
     # Make populations integers
@@ -44,7 +45,7 @@ def get_table9(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
     df.iloc[:, :percent_start] = df.iloc[:, :percent_start].astype(int)
 
     # Make percentages actually percent
-    df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(int).astype(str) + "%"
+    df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(float).round().astype(int).astype(str) + "%"
 
     help: Dict[str, str] = {
         "total2016": f"{int(df.iloc[-1, 0]):,}",
@@ -52,7 +53,7 @@ def get_table9(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
         "change": df.iloc[-1, 2]
     }
     # remove totals now from df
-    df = df.drop(index="Total")
+    df = df.drop(index="total by income")
 
     # Now get the AMHI and merge it into the dataframe
     for year in AMHI_tables.keys():
@@ -72,3 +73,4 @@ def get_table9(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
     return df, help
 
 
+get_table9(3511)

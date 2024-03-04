@@ -13,7 +13,10 @@ will reflect this syntax.
 4. Run the python file `run_me_once.py` to run the script once. This will create all the necessary files for this program
 5. Run the python file `main.py` to run the script.  This will create the report in the folder, under `generated_doc.docx`
 
-### Project breakdown
+### How to change the report
+All inputs are decided by the `report_input.py` file.  Change the values there, and then re-run `main.py`.
+
+## Project breakdown
 Like mentioned earlier, this is written with python-docx-template as its backbone.  As such, half the work is in the docx
 file, the other half in python.  All anchors currently belong in the `hart_template.docx`, and values are provided by
 the`context` dictionary in the `main.py` file.

@@ -6,7 +6,7 @@ from helpers.data_parsing.table_import import tenure_2016, tenure_2021
 from report_input import percent_CHN_by
 
 CHN_status = ["total by CHN", "examined for CHN", "CHN"]
-tenureship = ["owner", "with mortgage", "without mortgage", "renter", "subsidized", "unsubsidized"]
+tenureship = ["owner", "with mortgage", "without mortgage", "renter", "subsidized", "unsubsidized", "total by tenure"]
 
 
 def get_table20_23(geo_code: int, year: int) -> pd.DataFrame:
@@ -17,7 +17,7 @@ def get_table20_23(geo_code: int, year: int) -> pd.DataFrame:
     # Get any total from level 0 of dataframe
     df: pd.DataFrame = tables[year].loc[geo_code, tenureship].unstack()
     # Calculate totals
-    df.loc["Total", :] = df.sum()
+    # df.loc["Total", :] = df.sum()
     # Calulate % CHN by income
     df.loc[:, "% in CHN"] = df.loc[:, "CHN"] / df.loc[:, percent_CHN_by] * 100
     df = df.replace(np.NaN,0)
@@ -25,6 +25,7 @@ def get_table20_23(geo_code: int, year: int) -> pd.DataFrame:
     df = df.drop(columns=["total by CHN", "examined for CHN"])
     # Make populations integers
     percent_start = 1
+    df.iloc[:, percent_start:] = df.iloc[:, percent_start:].astype(float).round()
     df = df.astype(int).astype(str)
 
     # Make percentages actually percent
@@ -38,7 +39,10 @@ def get_table20_23(geo_code: int, year: int) -> pd.DataFrame:
         "without mortgage": "Without mortgage",
         "renter": "Renter",
         "subsidized": "Subsidized",
-        "unsubsidized": "Not subsidized"
+        "unsubsidized": "Not subsidized",
+        "total by tenure": "Total",
     }, axis=0)
     return df
 
+
+# get_table20_23(3511, 2016)

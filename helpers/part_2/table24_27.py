@@ -18,11 +18,14 @@ def get_table24_27(geo_code: int, year: int) -> pd.DataFrame:
     # Get any total from level 0 of dataframe
     labels = list(tables[year].columns.levels[2])
     total = next((value for value in labels if 'total' in value.lower()), None)
+    # Get total for priority population
+    labels = list(tables[year].columns.levels[0])
+    pp_total = next((value for value in labels if 'total' in value.lower()), None)
     # Get raw data
-    df = tables[year].loc[geo_code, (pp, "total by household size", total, CHN_status)]
+    df = tables[year].loc[geo_code, (pp + [pp_total], "total by household size", total, CHN_status)]
     df: pd.DataFrame = df.unstack().reset_index(drop=True, level=[1, 2])
     # Calculate totals
-    df.loc["Total", :] = df.sum()
+    # df.loc["Total", :] = df.sum()
     # Calulate % CHN by income
     df.loc[:, "% in CHN"] = df.loc[:, "CHN"] / df.loc[:, percent_CHN_by] * 100
     df = df.replace(np.NaN, 0)
@@ -30,6 +33,7 @@ def get_table24_27(geo_code: int, year: int) -> pd.DataFrame:
     df = df.drop(columns=["total by CHN", "examined for CHN"])
     # Make populations integers
     percent_start = 1
+    df.iloc[:, percent_start:] = df.iloc[:, percent_start:].astype(float).round()
     df = df.astype(int).astype(str)
 
     # Make percentages actually percent
@@ -49,8 +53,10 @@ def get_table24_27(geo_code: int, year: int) -> pd.DataFrame:
         "single mom": "Single mother-led HH",
         "under 24": "HH head under 24",
         "65 years+": "HH head over 65",
-        "85 years+": "HH head over 85"
+        "85 years+": "HH head over 85",
+        pp_total: "Total",
     }, axis=0)
     return df
 
 
+get_table24_27(3511, 2016)

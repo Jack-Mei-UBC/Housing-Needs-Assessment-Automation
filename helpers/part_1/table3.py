@@ -27,8 +27,8 @@ def get_table3(geo_code: int) -> pd.DataFrame:
 
     population_2006 = flat_2006.loc[geo_code, [f'{x} to {x + 4} years' for x in range(0, 96, 5)] + ['100 years+']].sum()
     population_2011 = flat_2011.loc[geo_code, [f'{x} to {x + 4} years' for x in range(0, 81, 5)] + ['85 years+']].sum()
-    population_2016 = flat_2011.loc[geo_code, [f'{x} to {x + 4} years' for x in range(0, 81, 5)] + ['85 years+']].sum()
-    population_2021 = flat_2011.loc[geo_code, [f'{x} to {x + 4} years' for x in range(0, 81, 5)] + ['85 years+']].sum()
+    population_2016 = flat_2016.loc[geo_code, [f'{x} to {x + 4} years' for x in range(0, 81, 5)] + ['85 years+']].sum()
+    population_2021 = flat_2021.loc[geo_code, [f'{x} to {x + 4} years' for x in range(0, 81, 5)] + ['85 years+']].sum()
 
     df_table3.at[labels[2], 2006] = \
         flat_2006.loc[geo_code, [f'{x} to {x + 4} years' for x in range(15, 96, 5)] + ['100 years+']].sum() / population_2006
@@ -51,5 +51,5 @@ def get_table3(geo_code: int) -> pd.DataFrame:
     df_table3.loc[labels[1], :] = df_table3.loc[labels[1], :].astype(int)
 
     # Make percentages actually percent
-    df_table3.loc[(labels[2], labels[3]), :] = (df_table3.loc[(labels[2], labels[3]), :]*100).astype(int).astype(str)+"%"
+    df_table3.loc[(labels[2], labels[3]), :] = (df_table3.loc[(labels[2], labels[3]), :]*100).astype(float).round().astype(int).astype(str) + "%"
     return df_table3

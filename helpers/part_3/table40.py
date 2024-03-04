@@ -5,7 +5,7 @@ import pandas as pd
 import report_input
 from helpers.data_parsing.table_import import consolidated_2021
 
-income_labels = ["very low income", "low income", "moderate income", "median income", "high income"]
+income_labels = ["very low income", "low income", "moderate income", "median income", "high income", "total by income"]
 
 
 def get_table40(geo_code_list: List[int]):
@@ -16,9 +16,9 @@ def get_table40(geo_code_list: List[int]):
     df.columns = [f"c{x}" for x in range(len(geo_code_list))]
     df = df.rename(
         index={"very low income": "Very Low", "low income": "Low", "moderate income": "Moderate",
-               "median income": "Median", "high income": "High"}
+               "median income": "Median", "high income": "High", "total by income": "Total"}
     )
-    df.loc["Total"] = df.sum()
+    # df.loc["Total"] = df.sum()
     df = df.astype(int)
     return df
 
@@ -38,4 +38,4 @@ def get_table40_helper(geo_code: int):
     return row
 
 
-get_table40(report_input.community_csds)
+# get_table40(report_input.community_csds)

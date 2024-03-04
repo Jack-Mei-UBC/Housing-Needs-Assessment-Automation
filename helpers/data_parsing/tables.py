@@ -25,7 +25,7 @@ bedroom_colors = {
     "1 bedroom": "rgba(77,198,248,255)",  # Light Blue
     "2 bedrooms": "rgba(101,152,209,255)",  # Medium Blue
     "3 bedrooms": "rgba(0,114,154,255)",  # Dark Blue
-    "4 or more bedrooms": "rgba(0,114,154,255)",  # Dark Blue
+    "4 or more bedrooms": "rgba(26,55,88,255)",  # Dark Blue
     "No bedrooms": "rgba(81,188,91,255)",  # Green
 }
 

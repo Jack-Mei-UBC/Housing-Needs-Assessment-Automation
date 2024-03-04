@@ -29,3 +29,6 @@ def get_table28(geo_code: int):
     negatives = -df_31 > df
     df[negatives] = -df_31[negatives]
     return df
+
+
+get_table28(3511)

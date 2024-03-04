@@ -4,7 +4,7 @@ import pandas as pd
 from helpers.data_parsing.table_import import consolidated_2006, consolidated_2016, consolidated_2021, \
     AMHI_2006, AMHI_2016, AMHI_2021
 
-incomes = ["very low income", "low income", "moderate income", "median income", "high income"]
+incomes = ["very low income", "low income", "moderate income", "median income", "high income", "total by income"]
 
 
 def get_table4(geo_code: int) -> pd.DataFrame:
@@ -27,8 +27,8 @@ def get_table4(geo_code: int) -> pd.DataFrame:
         data.index = data.index.get_level_values(2)
         df.loc[:, year] = data
     # Add totals
-    totals = df.sum().to_frame().T
-    df = pd.concat([df, totals])
+    # totals = df.sum().to_frame().T
+    # df = pd.concat([df, totals])
     # Calculate % changes between 2006 and 2016, then 2016 to 2021 as new columns
     df["change"] = (df[2016] - df[2006]) / df[2006] * 100
     df["change1"] = (df[2021] - df[2016]) / df[2016] * 100
@@ -36,7 +36,7 @@ def get_table4(geo_code: int) -> pd.DataFrame:
     df.iloc[:, :3] = df.iloc[:, :3].astype(int)
 
     # Make percentages actually percent
-    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(int).astype(str) + "%"
+    df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(float).round().astype(int).astype(str) + "%"
     return df
 
 
@@ -61,4 +61,5 @@ def get_AMHI(geo_code: int) -> Dict[int, str]:
 
     return out
 
-get_AMHI(1)
+
+# get_table4(3511)

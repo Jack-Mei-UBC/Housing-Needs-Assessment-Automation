@@ -33,7 +33,7 @@ def get_table11(geo_code: int) -> pd.DataFrame:
     df.iloc[:percent_start, :] = df.iloc[:percent_start, :].astype(int)
 
     # Make percentages actually percent
-    df.iloc[percent_start:, :] = (df.iloc[percent_start:, :]).astype(int).astype(str) + "%"
+    df.iloc[percent_start:, :] = (df.iloc[percent_start:, :]).astype(float).round().astype(int).astype(str) + "%"
 
     # Rename index
     df = df.rename({

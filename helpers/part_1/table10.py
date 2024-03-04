@@ -58,7 +58,7 @@ def get_table10(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
     df.iloc[:, :percent_start] = df.iloc[:, :percent_start].astype(int)
 
     # Make percentages actually percent
-    df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(int).astype(str) + "%"
+    df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(float).round().astype(int).astype(str) + "%"
 
     df = df.rename({
         "owner": "Owner HHs (#)",

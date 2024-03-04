@@ -29,7 +29,7 @@ def single_community_name(geo_code: int) -> str:
         return report_input.community_cd_name
     elif geo_code in report_input.community_csds:
         i = report_input.community_csds.index(geo_code)
-        if report_input.geo_name_list[i] is not None:
+        if len(report_input.geo_name_list) > i and report_input.geo_name_list[i] is not None:
             return report_input.geo_name_list[i]
     df = get_table2([geo_code])
     names = list(df["Geography"])

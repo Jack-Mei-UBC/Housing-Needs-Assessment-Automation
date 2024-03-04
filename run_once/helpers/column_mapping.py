@@ -62,7 +62,7 @@ fuzzy_regex_col_mapping = {
     "Total - Private households by tenure including presence of mortgage payments and subsidized housing": "total by tenure",
     "Total - Private households by tenure": "total by tenure",
     'Total - Private households by household family type of the primary household maintainer (PHM)': "total by PHM",
-    "tenure and mortgage": "total by ownership",
+    "tenure and mortgage": "total by tenure",
     'Total - Sex of the primary household maintainer (PHM)': "total by gender PHM",
     "Total .* by household income proportion to AMHI": "total by income",
     "Total .*ousehold income": "total by income",
