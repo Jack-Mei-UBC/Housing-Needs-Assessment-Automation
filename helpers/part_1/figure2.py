@@ -5,10 +5,11 @@ import report_input
 from helpers.data_parsing.table_import import comprehensive_2006, comprehensive_2011, comprehensive_2016, \
     comprehensive_2021
 from helpers.data_parsing.tables import image_locations, table_locations, colors
+from helpers.part_1.part_2_community_names import single_community_name
 
 
 def get_figure2(geo_code: int) -> str:
-    title = f"Population by Age, 2006-2021 - [{report_input.community_cd_name}]"
+    title = f"Population by Age, 2006-2021 - [{single_community_name(geo_code)}]"
     file_name = "figure2"
 
     fig = go.Figure(

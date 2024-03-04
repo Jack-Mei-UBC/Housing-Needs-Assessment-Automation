@@ -16,4 +16,4 @@ def get_table53(geo_list):
 
 
 
-get_table53(report_input.geo_code_list)
+get_table53(report_input.community_csds)

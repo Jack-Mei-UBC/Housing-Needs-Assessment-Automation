@@ -1,13 +1,8 @@
 from typing import List
 
 import numpy as np
-import pandas as pd
 
 import report_input
-from helpers.context_helpers import get_community_name
-from helpers.data_parsing.tables import projections
-from helpers.part_3.table33 import get_table33
-from helpers.part_3.table36 import get_table36
 from helpers.part_3.table37 import get_table37
 from helpers.part_3.table40 import get_table40
 
@@ -25,4 +20,4 @@ def get_table38(geo_code_list: List[int]):
     return df
 
 
-get_table38(report_input.geo_code_list)
+get_table38(report_input.community_csds)

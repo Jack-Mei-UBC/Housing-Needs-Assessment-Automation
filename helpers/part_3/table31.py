@@ -1,6 +1,5 @@
 import pandas as pd
 
-from helpers.context_helpers import get_community_name
 from helpers.data_parsing.table_import import income_bedroom_2021
 
 

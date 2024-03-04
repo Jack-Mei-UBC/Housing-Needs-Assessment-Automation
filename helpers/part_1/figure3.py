@@ -96,4 +96,4 @@ def figure3_helper(geo_list: List[int]):
     return df
 
 
-get_figure3(report_input.geo_code_list)
+get_figure3(report_input.community_csds)

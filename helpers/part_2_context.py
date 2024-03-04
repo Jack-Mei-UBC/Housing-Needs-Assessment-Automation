@@ -14,32 +14,33 @@ from helpers.part_2.table24_27 import get_table24_27
 from helpers.part_2.table25 import get_table25
 
 
-def part_2_context(doc: DocxTemplate):
+def part_2_context(focus: int, doc: DocxTemplate):
     context = {
         # For the 4 region table names
-        "part2codes": community_names(report_input.geo_code_list),
+        "part2codes": community_names(report_input.community_csds),
+        "title_length": len(report_input.community_csds) * 2 + 1,
         #
-        "table11": df_to_table(get_table11(report_input.community_cd)),
+        "table11": df_to_table(get_table11(focus)),
         # CHN by income
         "table12": df_to_table(get_table12_15(report_input.community_cd, 2016)),
-        "table13": df_to_table_grouped(get_table13(report_input.geo_code_list, 2016)),
+        "table13": df_to_table_grouped(get_table13(report_input.community_csds, 2016)),
         "table14": df_to_table(get_table12_15(report_input.community_cd, 2021)),
-        "table15": df_to_table_grouped(get_table13(report_input.geo_code_list, 2021)),
+        "table15": df_to_table_grouped(get_table13(report_input.community_csds, 2021)),
         # CHN by HH size
         "table16": df_to_table(get_table16_19(report_input.community_cd, 2016)),
-        "table17": df_to_table_grouped(get_table17(report_input.geo_code_list, 2016)),
+        "table17": df_to_table_grouped(get_table17(report_input.community_csds, 2016)),
         "table18": df_to_table(get_table16_19(report_input.community_cd, 2021)),
-        "table19": df_to_table_grouped(get_table17(report_input.geo_code_list, 2021)),
+        "table19": df_to_table_grouped(get_table17(report_input.community_csds, 2021)),
         # CHN by tenure
         "table20": df_to_table(get_table20_23(report_input.community_cd, 2016)),
-        "table21": df_to_table_grouped(get_table21(report_input.geo_code_list, 2016)),
+        "table21": df_to_table_grouped(get_table21(report_input.community_csds, 2016)),
         "table22": df_to_table(get_table20_23(report_input.community_cd, 2021)),
-        "table23": df_to_table_grouped(get_table21(report_input.geo_code_list, 2021)),
+        "table23": df_to_table_grouped(get_table21(report_input.community_csds, 2021)),
         # CHN by Priority Population
         "table24": df_to_table(get_table24_27(report_input.community_cd, 2016)),
-        "table25": df_to_table_grouped(get_table25(report_input.geo_code_list, 2016)),
+        "table25": df_to_table_grouped(get_table25(report_input.community_csds, 2016)),
         "table26": df_to_table(get_table24_27(report_input.community_cd, 2021)),
-        "table27": df_to_table_grouped(get_table25(report_input.geo_code_list, 2021)),
+        "table27": df_to_table_grouped(get_table25(report_input.community_csds, 2021)),
 
     }
     return context

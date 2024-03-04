@@ -18,24 +18,24 @@ from helpers.part_1.table8 import get_table8
 from helpers.part_1.table9 import get_table9
 
 
-def part_1_context(doc: DocxTemplate):
+def part_1_context(focus: int, doc: DocxTemplate):
 
     context = {
-        "table2": df_to_table_no_comma(get_table2(report_input.geo_code_list)),
-        "table3": df_to_table(get_table3(report_input.community_cd)),
-        "table4": df_to_table(get_table4(report_input.community_cd)),
-        "table4help": get_AMHI(report_input.community_cd),
-        "table5": df_to_table(get_table5(report_input.community_cd)),
-        "table6": df_to_table(get_table6(report_input.community_cd)),
-        "table7": df_to_table(get_table7(report_input.community_cd)),
-        "table8": df_to_table(get_table8(report_input.community_cd)),
-        "table9": df_to_table(get_table9(report_input.community_cd)[0]),
-        "table9help": get_table9(report_input.community_cd)[1],
-        "table10": df_to_table(get_table10(report_input.community_cd)),
-        "figure2": image_to_figure(doc, get_figure2(report_input.community_cd)),
-        "figure3": image_to_figure(doc, get_figure3(report_input.geo_code_list)),
-        "figure4": image_to_figure(doc, get_figure4(report_input.community_cd)),
-        "figure5": image_to_figure(doc, get_figure5(report_input.community_cd)),
-        "figure6": image_to_figure(doc, get_figure6(report_input.community_cd)),
+        "table2": df_to_table_no_comma(get_table2([report_input.community_cd]+report_input.community_csds)),
+        "table3": df_to_table(get_table3(focus)),
+        "table4": df_to_table(get_table4(focus)),
+        "table4help": get_AMHI(focus),
+        "table5": df_to_table(get_table5(focus)),
+        "table6": df_to_table(get_table6(focus)),
+        "table7": df_to_table(get_table7(focus)),
+        "table8": df_to_table(get_table8(focus)),
+        "table9": df_to_table(get_table9(focus)[0]),
+        "table9help": get_table9(focus)[1],
+        "table10": df_to_table(get_table10(focus)),
+        "figure2": image_to_figure(doc, get_figure2(focus)),
+        "figure3": image_to_figure(doc, get_figure3([report_input.community_cd, report_input.community_csd])),
+        "figure4": image_to_figure(doc, get_figure4(focus)),
+        "figure5": image_to_figure(doc, get_figure5(focus)),
+        "figure6": image_to_figure(doc, get_figure6(focus)),
     }
     return context

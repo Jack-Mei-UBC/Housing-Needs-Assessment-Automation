@@ -47,8 +47,8 @@ def get_table9(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
     df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(int).astype(str) + "%"
 
     help: Dict[str, str] = {
-        "total2016": df.iloc[-1, 0],
-        "total2021": df.iloc[-1, 1],
+        "total2016": f"{int(df.iloc[-1, 0]):,}",
+        "total2021": f"{int(df.iloc[-1, 1]):,}",
         "change": df.iloc[-1, 2]
     }
     # remove totals now from df
@@ -59,7 +59,8 @@ def get_table9(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
         # All totals do the same damn thing, please only keep one in the future
         data: pd.Series = AMHI_tables[year].loc[geo_code, :]
         df.loc[:, f"cost{year}"] = data
-        help[f"AMHI{year}"] = AMHI_tables[year].loc[geo_code, "AMHI"]
+        help[f"AMHI{year}"] = f"{int(AMHI_tables[year].at[geo_code, "AMHI"]):,}"
+
 
     df = df.rename({
         "very low shelter cost": "Very Low",

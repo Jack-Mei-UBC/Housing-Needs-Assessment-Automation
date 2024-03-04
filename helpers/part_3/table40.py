@@ -3,7 +3,6 @@ from typing import List
 import pandas as pd
 
 import report_input
-from helpers.context_helpers import get_community_name
 from helpers.data_parsing.table_import import consolidated_2021
 
 income_labels = ["very low income", "low income", "moderate income", "median income", "high income"]
@@ -39,4 +38,4 @@ def get_table40_helper(geo_code: int):
     return row
 
 
-get_table40(report_input.geo_code_list)
+get_table40(report_input.community_csds)

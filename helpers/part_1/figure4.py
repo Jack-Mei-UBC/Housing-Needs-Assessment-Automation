@@ -4,12 +4,12 @@ from plotly.subplots import make_subplots
 
 from helpers.data_parsing.table_import import dwelling_type_period_2021
 from helpers.data_parsing.tables import image_locations, table_locations
-from helpers.introduction.table2 import get_table2
+from helpers.part_1.part_2_community_names import single_community_name
 
 
 def get_figure4(geo_code: int) -> str:
-    label = get_table2([geo_code])
-    title = f"Housing stock in 2021 by Period of Construction - [{label.at[label.index[0], 'Geography']}]"
+    label = single_community_name(geo_code)
+    title = f"Housing stock in 2021 by Period of Construction - [{label}]"
     file_name = "figure4"
 
     df = figure4_helper(geo_code)

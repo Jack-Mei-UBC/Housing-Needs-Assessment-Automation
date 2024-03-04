@@ -1,11 +1,7 @@
 from typing import List
 
 import numpy as np
-import pandas as pd
 
-import report_input
-from helpers.context_helpers import get_community_name
-from helpers.data_parsing.tables import projections
 from helpers.part_3.table33 import get_table33
 from helpers.part_3.table36 import get_table36
 

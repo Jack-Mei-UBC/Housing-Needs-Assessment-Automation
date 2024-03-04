@@ -1,7 +1,5 @@
-import pandas as pd
 import numpy as np
-from helpers.context_helpers import get_community_name
-from helpers.data_parsing.tables import projections
+
 from helpers.part_3.table30 import get_table30
 from helpers.part_3.table31 import get_table31
 

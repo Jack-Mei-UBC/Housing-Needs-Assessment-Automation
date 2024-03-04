@@ -3,7 +3,6 @@ from typing import List
 import pandas as pd
 
 import report_input
-from helpers.context_helpers import get_community_name
 from helpers.data_parsing.tables import projections
 
 hh_size = [1, 2, 3, 4, 5]
@@ -35,4 +34,4 @@ def get_table35_helper(geo_code: int):
     return series
 
 
-get_table35(report_input.geo_code_list + [1])
+get_table35(report_input.community_csds + [1])

@@ -1,6 +1,5 @@
 import pandas as pd
 
-from helpers.context_helpers import get_community_name
 from helpers.data_parsing.tables import projections
 from helpers.part_3.table31 import get_table31
 
@@ -8,7 +7,6 @@ from helpers.part_3.table31 import get_table31
 def get_table28(geo_code: int):
     beds = [1, 2, 3, 4, 5]
     income_lv_list = ['20% or under', '21% to 50%', '51% to 80%', '81% to 120%', '121% or more']
-    geography = get_community_name(geo_code)
     row = projections.loc[geo_code, :]
     df = pd.DataFrame(columns=income_lv_list, index=beds)
     for bed in beds:

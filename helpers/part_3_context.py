@@ -18,10 +18,10 @@ from helpers.part_3.table39 import get_table39
 from helpers.part_3.table40 import get_table40
 
 
-def part_3_context(doc: DocxTemplate):
+def part_3_context(focus: int, doc: DocxTemplate):
     context = {
         # For the 4 region table names
-        "part2codes": community_names(report_input.geo_code_list),
+        "part2codes": community_names(report_input.community_csds),
         # By bedroom/income
         "table28": df_to_table(get_table28(report_input.community_cd)),
         "table29": df_to_table(get_table29(report_input.community_cd)),
@@ -29,15 +29,15 @@ def part_3_context(doc: DocxTemplate):
         "table31": df_to_table(get_table31(report_input.community_cd)),
         "table32": df_to_table(get_table32(report_input.community_cd)),
         # by hh size
-        "table33": df_to_table_with_label_seperated(get_table33(report_input.geo_code_list)),
-        "table34": df_to_table_with_label_seperated(get_table34(report_input.geo_code_list)),
-        "table35": df_to_table_with_label_seperated(get_table35(report_input.geo_code_list)),
-        "table36": df_to_table_with_label_seperated(get_table36(report_input.geo_code_list)),
+        "table33": df_to_table_with_label_seperated(get_table33(report_input.community_csds)),
+        "table34": df_to_table_with_label_seperated(get_table34(report_input.community_csds)),
+        "table35": df_to_table_with_label_seperated(get_table35(report_input.community_csds)),
+        "table36": df_to_table_with_label_seperated(get_table36(report_input.community_csds)),
         # by income
-        "table37": df_to_table_with_label_seperated(get_table37(report_input.geo_code_list)),
-        "table38": df_to_table_with_label_seperated(get_table38(report_input.geo_code_list)),
-        "table39": df_to_table_with_label_seperated(get_table39(report_input.geo_code_list)),
-        "table40": df_to_table_with_label_seperated(get_table40(report_input.geo_code_list)),
+        "table37": df_to_table_with_label_seperated(get_table37(report_input.community_csds)),
+        "table38": df_to_table_with_label_seperated(get_table38(report_input.community_csds)),
+        "table39": df_to_table_with_label_seperated(get_table39(report_input.community_csds)),
+        "table40": df_to_table_with_label_seperated(get_table40(report_input.community_csds)),
 
     }
     return context

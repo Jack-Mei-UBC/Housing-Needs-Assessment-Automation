@@ -3,7 +3,6 @@ from typing import List
 import pandas as pd
 
 import report_input
-from helpers.context_helpers import get_community_name
 from helpers.data_parsing.tables import projections
 
 income = ["20% or under of area median household income (AMHI)",
@@ -40,4 +39,4 @@ def get_table39_helper(geo_code: int):
     return series
 
 
-get_table39(report_input.geo_code_list + [1])
+get_table39(report_input.community_csds + [1])
