@@ -7,11 +7,23 @@ which uses `python-docx` and `jinja` internally, and the report's variables
 will reflect this syntax.  
 
 ## How to use
-1. Install python 3.11 (pip will be included)
-2. Copy the `/assets/` folder from OneDrive into the root of this project
-3. Open the directory in a terminal, and run `pip install -r requirements.txt`
-4. Run the python file `run_me_once.py` to run the script once. This will create all the necessary files for this program
+1. Install python 3.12 (pip will be included), you may run into this issue with windows 11? [Solution](https://stackoverflow.com/questions/65348890/python-was-not-found-run-without-arguments-to-install-from-the-microsoft-store)
+2. Copy the `/assets/` folder from OneDrive into the `src` directory of this project
+3. Open the project root in a terminal, and install the necessary packages using `pip install -r requirements.txt`
+4. In the terminal, open `/src/`.  Run the python file using `run_me_once` to run the script once. 
+This will create all the necessary files for this program
+
+``` 
+cd src
+python -m run_once.run_me_once
+```
+
 5. Run the python file `main.py` to run the script.  This will create the report in the folder, under `generated_doc.docx`
+
+``` 
+cd ..
+python main.py
+```
 
 ### How to change the report
 All inputs are decided by the `report_input.py` file.  Change the values there, and then re-run `main.py`.

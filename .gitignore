@@ -2,5 +2,7 @@
 /assets/codes/
 /local/
 /.idea/
-/generated_doc.docx
+/src/generated_doc.docx
 /*.docx#
+/src/assets/
+/hna_auto.egg-info/
