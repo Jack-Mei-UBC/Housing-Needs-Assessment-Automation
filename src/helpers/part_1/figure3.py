@@ -56,7 +56,7 @@ def figure3_helper(geo_list: List[int]):
         2006: comprehensive_2006.xs('total by gender', axis=1, level=0),
         2021: comprehensive_2021.xs('total by gender', axis=1, level=0),
     }
-    PHM_2006_85 = HART_2006.loc[:, ("85 years+", "total by ownership", "total by income", "total by CHN")]
+    PHM_2006_85 = HART_2006.loc[:, ("85 years+", "total by tenure", "total by income", "total by CHN")]
 
     for code in geo_list:
         for i, index in enumerate(df.index):

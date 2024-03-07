@@ -60,7 +60,7 @@ def get_table9(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
         # All totals do the same damn thing, please only keep one in the future
         data: pd.Series = AMHI_tables[year].loc[geo_code, :]
         df.loc[:, f"cost{year}"] = data
-        help[f"AMHI{year}"] = f"{int(AMHI_tables[year].at[geo_code, "AMHI"]):,}"
+        help[f"AMHI{year}"] = f"{int(AMHI_tables[year].at[geo_code, 'AMHI']):,}"
 
 
     df = df.rename({
