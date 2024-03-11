@@ -42,7 +42,7 @@ def get_table16_19(geo_code: int, year: int) -> pd.DataFrame:
         "2 persons": "2p.",
         "3 persons": "3p.",
         "4 persons": "4p.",
-        "5+ persons": "5p or more",
+        "5+ persons": "5 or more",
         "total by household size": "Total"
     }, axis=0)
     return df

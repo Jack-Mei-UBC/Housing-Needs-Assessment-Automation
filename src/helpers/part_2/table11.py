@@ -45,4 +45,4 @@ def get_table11(geo_code: int) -> pd.DataFrame:
     return df
 
 
-get_table11(1)
+# get_table11(1)

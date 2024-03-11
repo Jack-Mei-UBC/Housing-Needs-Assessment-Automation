@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import report_input
 from helpers.data_parsing.table_import import comprehensive_2006, \
     comprehensive_2021, PHM_2006, HART_2006
-from helpers.data_parsing.tables import image_locations, table_locations
+from helpers.data_parsing.tables import image_locations, table_locations, colors
 from helpers.introduction.table2 import get_table2
 
 years = [2006, 2021]
@@ -37,7 +37,7 @@ def get_figure3(geo_list: List[int]) -> str:
                 y=df.loc[:, (year, code)],
                 name=f'{row.at[row.index[0], "Geography"]} - {year}',
                 line={"shape": "spline"},
-                # marker={"color": colors[year]}
+                marker={"color": colors[year]}
             ))
     fig.update_yaxes(tickformat=".0%", rangemode="tozero")
     fig.update_layout(legend=dict(

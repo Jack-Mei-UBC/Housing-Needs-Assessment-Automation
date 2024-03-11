@@ -1,7 +1,8 @@
 from typing import Dict
 
 import pandas as pd
-from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021, comprehensive_2016, comprehensive_2021
+from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021, comprehensive_2016, \
+    comprehensive_2021
 
 shelter_cost = [
     "owner",
@@ -44,13 +45,10 @@ def get_table10(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
         data: pd.Series = df_source.loc[geo_code, ["owner monthly shelter cost", "renter monthly shelter cost"]]
         df.loc[data.index, year] = data
 
-
-
-
     # Add totals
     df.loc["Implied median monthly shelter cost - All Dwellings ($)", :] = \
-        (df.loc["owner", :]*df.loc["owner monthly shelter cost", :] +
-         df.loc["renter", :]*df.loc["renter monthly shelter cost", :]) / df.sum(axis=0)
+        (df.loc["owner", :] * df.loc["owner monthly shelter cost", :] +
+         df.loc["renter", :] * df.loc["renter monthly shelter cost", :]) / df.loc[["owner", "renter"]].sum(axis=0)
     # Calculate % changes between 2006 and 2016, then 2016 to 2021 as new columns
     df["change"] = (df[2021] - df[2016]) / df[2016] * 100
     # Make populations integers
@@ -60,6 +58,14 @@ def get_table10(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
     # Make percentages actually percent
     df.iloc[:, percent_start:] = (df.iloc[:, percent_start:]).astype(float).round().astype(int).astype(str) + "%"
 
+    # Change these to prices
+    indices = [
+        "Implied median monthly shelter cost - All Dwellings ($)",
+        "owner monthly shelter cost",
+        "renter monthly shelter cost"
+    ]
+    df.loc[indices, [2016, 2021]] = df.loc[indices, [2016, 2021]].map(lambda x: '${:,.0f}'.format(x))
+
     df = df.rename({
         "owner": "Owner HHs (#)",
         "owner monthly shelter cost": "Median monthly shelter cost - Owned dwellings ($)",
@@ -67,3 +73,6 @@ def get_table10(geo_code: int) -> (pd.DataFrame, Dict[str, str]):
         "renter monthly shelter cost": "Median monthly shelter cost - Rented dwellings ($)",
     }, axis=0)
     return df
+
+
+# get_table10(3511)

@@ -36,6 +36,7 @@ def get_table6(geo_code: int) -> pd.DataFrame:
 
     # Make percentages actually percent
     df.iloc[:, 3:] = (df.iloc[:, 3:]).astype(float).round().astype(int).astype(str) + "%"
+    df = df.rename(index={"total by household size": "Total"})
     return df
 
 

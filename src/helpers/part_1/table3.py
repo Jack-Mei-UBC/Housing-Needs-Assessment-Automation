@@ -53,3 +53,6 @@ def get_table3(geo_code: int) -> pd.DataFrame:
     # Make percentages actually percent
     df_table3.loc[(labels[2], labels[3]), :] = (df_table3.loc[(labels[2], labels[3]), :]*100).astype(float).round().astype(int).astype(str) + "%"
     return df_table3
+
+
+get_table3(4806)

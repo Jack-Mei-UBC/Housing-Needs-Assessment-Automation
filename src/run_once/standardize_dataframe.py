@@ -2,7 +2,7 @@ import re
 
 import pandas as pd
 
-from .column_mapping import col_map, fuzzy_regex_col_mapping
+from column_mapping import col_map, fuzzy_regex_col_mapping
 
 
 # Unlike the previous hart project, we're going to use MultiIndex from now on

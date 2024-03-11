@@ -55,7 +55,7 @@ def get_AMHI(geo_code: int) -> Dict[int, str]:
     }
     for year in AMHI_tables.keys():
         try:
-            out[year] = AMHI_tables[year].loc[geo_code, "AMHI"]
+            out[year] = '{:,}'.format(int(AMHI_tables[year].loc[geo_code, "AMHI"]))
         except KeyError:
             out[year] = "N/A"
 
