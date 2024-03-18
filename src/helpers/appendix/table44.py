@@ -11,7 +11,15 @@ def get_table44(geo_code):
     df[total] = total_vals
     df = df.astype(int).astype(str)
     df = df.T
+    df = df.rename(
+        index={
+            total: "Total by Structural Type",
+        },
+        columns={
+            "total by construction period": "Total by Construction Period",
+        }
+    )
     return df
 
 
-get_table44(report_input.community_cd)
+# get_table44(report_input.community_cd)

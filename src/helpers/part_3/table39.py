@@ -4,6 +4,7 @@ import pandas as pd
 
 import report_input
 from helpers.data_parsing.tables import projections
+from part_3.helpers.rounding import round_df
 
 income = ["20% or under of area median household income (AMHI)",
           "21% to 50% of AMHI",
@@ -23,6 +24,9 @@ def get_table39(geo_code_list: List[int]):
         index={"20% or under of area median household income (AMHI)": 'Very Low', "21% to 50% of AMHI": 'Low',
                "51% to 80% of AMHI": 'Moderate', "81% to 120% of AMHI": 'Median', "121% or over of AMHI": 'High'}
     )
+
+    # Make the numbers less precise
+    df = round_df(df)
     df.loc["Total"] = df.sum()
     df = df.astype(int)
     return df
@@ -39,4 +43,4 @@ def get_table39_helper(geo_code: int):
     return series
 
 
-get_table39(report_input.community_csds + [1])
+# get_table39(report_input.community_csds + [1])

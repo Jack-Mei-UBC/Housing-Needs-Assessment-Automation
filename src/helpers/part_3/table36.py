@@ -13,7 +13,7 @@ def get_table36(geo_code_list: List[int]):
         df[geo_code] = get_table36_helper(geo_code)
     # Change column names to c0-c3 to make formatting easier
     df = df.rename(
-        index={"1 person": "1p.", "2 persons": "2p.", "3 persons": "3p.", "4 persons": "4p.", "5+ persons": "5p.",
+        index={"1 person": "1p.", "2 persons": "2p.", "3 persons": "3p.", "4 persons": "4p.", "5+ persons": "5+ p.",
                 "total by household size": "Total"}
     )
     df.columns = [f"c{x}" for x in range(len(geo_code_list))]

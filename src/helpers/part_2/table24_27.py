@@ -54,7 +54,7 @@ def get_table24_27(geo_code: int, year: int) -> pd.DataFrame:
         "under 24": "HH head under 24",
         "65 years+": "HH head over 65",
         "85 years+": "HH head over 85",
-        pp_total: "Total",
+        pp_total: "Community (all HHs)",
     }, axis=0)
     return df
 

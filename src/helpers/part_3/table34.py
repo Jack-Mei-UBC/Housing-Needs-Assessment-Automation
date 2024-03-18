@@ -2,6 +2,7 @@ from typing import List
 
 import numpy as np
 
+import report_input
 from helpers.part_3.table33 import get_table33
 from helpers.part_3.table36 import get_table36
 
@@ -19,3 +20,4 @@ def get_table34(geo_code_list: List[int]):
     return df
 
 
+get_table34(report_input.community_csds)

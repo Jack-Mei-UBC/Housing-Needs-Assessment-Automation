@@ -38,11 +38,11 @@ def get_table16_19(geo_code: int, year: int) -> pd.DataFrame:
     # Rename index
     df = df.rename({"% in CHN": "pctCHN"}, axis=1)
     df = df.rename({
-        "1 person": "1p.",
-        "2 persons": "2p.",
-        "3 persons": "3p.",
-        "4 persons": "4p.",
-        "5+ persons": "5 or more",
+        "1 person": "1 p.",
+        "2 persons": "2 p.",
+        "3 persons": "3 p.",
+        "4 persons": "4 p.",
+        "5+ persons": "5p. or more",
         "total by household size": "Total"
     }, axis=0)
     return df

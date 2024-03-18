@@ -33,13 +33,14 @@ def get_table20_23(geo_code: int, year: int) -> pd.DataFrame:
 
     # Rename index
     df = df.rename({"% in CHN": "pctCHN"}, axis=1)
+    df = df.loc[tenureship]
     df = df.rename({
         "owner": "Owner",
-        "with mortgage": "With mortgage",
-        "without mortgage": "Without mortgage",
+        "with mortgage": "    With mortgage",
+        "without mortgage": "    Without mortgage",
         "renter": "Renter",
-        "subsidized": "Subsidized",
-        "unsubsidized": "Not subsidized",
+        "subsidized": "    Subsidized",
+        "unsubsidized": "    Not subsidized",
         "total by tenure": "Total",
     }, axis=0)
     return df

@@ -1,7 +1,7 @@
 from docxtpl import DocxTemplate
 
 import report_input
-from helpers.context_helpers import df_to_table, df_to_table_grouped
+from helpers.context_helpers import df_to_table, df_to_table_grouped, merge_years
 from helpers.part_1.part_2_community_names import community_names
 from helpers.part_2.table11 import get_table11
 from helpers.part_2.table12_15 import get_table12_15
@@ -22,24 +22,32 @@ def part_2_context(focus: int, doc: DocxTemplate):
         #
         "table11": df_to_table(get_table11(focus)),
         # CHN by income
-        "table12": df_to_table(get_table12_15(report_input.community_cd, 2016)),
+        "table12": df_to_table(merge_years(get_table12_15(report_input.community_cd, 2016),
+                                           get_table12_15(report_input.community_cd, 2021))),
         "table13": df_to_table_grouped(get_table13(report_input.community_csds, 2016)),
-        "table14": df_to_table(get_table12_15(report_input.community_cd, 2021)),
+        "table14": df_to_table(merge_years(get_table12_15(report_input.community_cd, 2016),
+                                           get_table12_15(report_input.community_cd, 2021))),
         "table15": df_to_table_grouped(get_table13(report_input.community_csds, 2021)),
         # CHN by HH size
-        "table16": df_to_table(get_table16_19(report_input.community_cd, 2016)),
+        "table16": df_to_table(merge_years(get_table16_19(report_input.community_cd, 2016),
+                                           get_table16_19(report_input.community_cd, 2021))),
         "table17": df_to_table_grouped(get_table17(report_input.community_csds, 2016)),
-        "table18": df_to_table(get_table16_19(report_input.community_cd, 2021)),
+        "table18": df_to_table(merge_years(get_table16_19(report_input.community_cd, 2016),
+                                           get_table16_19(report_input.community_cd, 2021))),
         "table19": df_to_table_grouped(get_table17(report_input.community_csds, 2021)),
         # CHN by tenure
-        "table20": df_to_table(get_table20_23(report_input.community_cd, 2016)),
+        "table20": df_to_table(merge_years(get_table20_23(report_input.community_cd, 2016),
+                                           get_table20_23(report_input.community_cd, 2021))),
         "table21": df_to_table_grouped(get_table21(report_input.community_csds, 2016)),
-        "table22": df_to_table(get_table20_23(report_input.community_cd, 2021)),
+        "table22": df_to_table(merge_years(get_table20_23(report_input.community_cd, 2016),
+                                           get_table20_23(report_input.community_cd, 2021))),
         "table23": df_to_table_grouped(get_table21(report_input.community_csds, 2021)),
         # CHN by Priority Population
-        "table24": df_to_table(get_table24_27(report_input.community_cd, 2016)),
+        "table24": df_to_table(merge_years(get_table24_27(report_input.community_cd, 2016),
+                                           get_table24_27(report_input.community_cd, 2021))),
         "table25": df_to_table_grouped(get_table25(report_input.community_csds, 2016)),
-        "table26": df_to_table(get_table24_27(report_input.community_cd, 2021)),
+        "table26": df_to_table(merge_years(get_table24_27(report_input.community_cd, 2016),
+                                           get_table24_27(report_input.community_cd, 2021))),
         "table27": df_to_table_grouped(get_table25(report_input.community_csds, 2021)),
 
     }

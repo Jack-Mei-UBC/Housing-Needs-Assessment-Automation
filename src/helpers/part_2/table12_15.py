@@ -2,6 +2,8 @@ from typing import Dict
 
 import numpy as np
 import pandas as pd
+
+from context_helpers import merge_years
 from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021
 from report_input import percent_CHN_by
 
@@ -47,5 +49,5 @@ def get_table12_15(geo_code: int, year: int) -> pd.DataFrame:
     }, axis=0)
     return df
 
-
-# get_table12_15(3511, 2016)
+# df = merge_years(get_table12_15(3511, 2016), get_table12_15(3511, 2021))
+# print(df)

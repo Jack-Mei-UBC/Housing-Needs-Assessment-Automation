@@ -10,8 +10,11 @@ from helpers.part_1.part_2_community_names import community_names_string, single
 from helpers.part_1_context import part_1_context
 from helpers.part_2_context import part_2_context
 from helpers.part_3_context import part_3_context
+import post_processing
 
 template_name = "hart_template.docx"
+output_name = "generated_doc.docx"
+
 doc = DocxTemplate(template_name)
 focus = report_input.community_csd if report_input.focus_on_csd else report_input.community_cd
 context = {
@@ -27,4 +30,8 @@ context.update(part_2_context(focus, doc))
 context.update(part_3_context(focus, doc))
 context.update(appendix_context(focus, doc))
 doc.render(context)
-doc.save("generated_doc.docx")
+doc.save(output_name)
+
+# After we use the auto-generated library, we will "manually" change the rows on some tables to be bolded
+
+post_processing.run(output_name)

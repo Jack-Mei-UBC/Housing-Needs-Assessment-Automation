@@ -4,6 +4,7 @@ import pandas as pd
 
 import report_input
 from helpers.data_parsing.tables import projections
+from part_3.helpers.rounding import round_df
 
 hh_size = [1, 2, 3, 4, 5]
 
@@ -19,6 +20,8 @@ def get_table35(geo_code_list: List[int]):
         index={1: "1p.", 2: "2p.", 3: "3p.", 4: "4p.", 5: "5+ p."}
     )
     df.loc["Total"] = df.sum()
+    # Make the numbers less precise
+    df = round_df(df)
     df = df.astype(int)
     return df
 

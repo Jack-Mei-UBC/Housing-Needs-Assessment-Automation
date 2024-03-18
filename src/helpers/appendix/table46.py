@@ -18,6 +18,8 @@ def get_table46(geo_code):
     df.loc["AMHI"] = int(df.loc["AMHI"])
     df.loc["AMHI"] = "${:,.0f}".format(df.loc["AMHI"])
 
+    # df.loc["Very Low"] = "< " + df.loc["Very Low"]
+
     df.name = single_community_name(geo_code)
     return df.to_frame()
 

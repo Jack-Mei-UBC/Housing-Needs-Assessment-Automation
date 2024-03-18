@@ -84,6 +84,15 @@ def df_to_table_grouped(df: pd.DataFrame):
     return out
 
 
+def merge_years(df0: pd.DataFrame, df1: pd.DataFrame) -> pd.DataFrame:
+    df1 = df1.rename(columns={
+        "CHN": "CHN1",
+        "pctCHN": "pctCHN1",
+    })
+    df = pd.concat([df0, df1], axis=1)
+    return df
+
+
 def image_to_figure(doc: DocxTemplate, name: str):
     return InlineImage(doc, image_locations + name, width=Inches(6.5), height=Inches(3))
 
