@@ -20,4 +20,4 @@ def get_table34(geo_code_list: List[int]):
     return df
 
 
-get_table34(report_input.community_csds)
+# get_table34(report_input.community_csds)

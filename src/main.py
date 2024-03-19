@@ -25,13 +25,21 @@ context = {
     'community': single_community_name(focus),
     'community_cd_csds_list': community_names_string([report_input.community_cd] + report_input.community_csds),
 }
+print("Generating document...")
 context.update(part_1_context(focus, doc))
+print("Part 1 done")
 context.update(part_2_context(focus, doc))
+print("Part 2 done")
 context.update(part_3_context(focus, doc))
+print("Part 3 done")
 context.update(appendix_context(focus, doc))
-doc.render(context)
+print("Appendix done")
+print("Saving document...")
+doc.render(context, autoescape=True)
 doc.save(output_name)
+print("Saved, now doing post processing...")
 
 # After we use the auto-generated library, we will "manually" change the rows on some tables to be bolded
 
 post_processing.run(output_name)
+print("Done")

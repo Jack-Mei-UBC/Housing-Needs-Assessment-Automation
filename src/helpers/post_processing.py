@@ -2,11 +2,11 @@ import docx
 import docx.text.paragraph, docx.table
 
 keys = [
-    "Table : Projected change in number",
-    "Table : Implied 10-year growth rate in number of ",
-    "Table : Projected change in number of households ",
-    "Table : Estimated number of households ",
-    "Table : Actual number of households in core housing ",
+    "Table 28:",
+    "Table 29:",
+    "Table 30:",
+    "Table 31:",
+    "Table 32:",
 ]
 
 
@@ -16,7 +16,7 @@ def run(output_name: str):
     table = None
     for paragraph in doc.iter_inner_content():
         if isinstance(paragraph, docx.text.paragraph.Paragraph):
-            print(paragraph.text)
+            # print(paragraph.text)
             if any([key in paragraph.text for key in keys]):
                 bold_last_row(table)
         if isinstance(paragraph, docx.table.Table):
@@ -33,4 +33,4 @@ def bold_last_row(table):
             run.bold = True
 
 
-run("generated_doc.docx")
+# run("generated_doc.docx")

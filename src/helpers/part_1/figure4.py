@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+import report_input
 from helpers.data_parsing.table_import import dwelling_type_period_2021
 from helpers.data_parsing.tables import image_locations, table_locations
 from helpers.part_1.part_2_community_names import single_community_name
@@ -44,7 +45,12 @@ def get_figure4(geo_code: int) -> str:
     # Change primary to show number instead of k
     # Change secondary y axis to be formatted percentage
     fig.update_yaxes(tickformat=",.0f")
-    fig.update_yaxes(tickformat=".0%", secondary_y=True)
+    fig.update_yaxes(
+        tickformat=".0%",
+        showgrid=False,
+        visible=False,
+        secondary_y=True
+    )
     fig.add_trace(trace1)
     fig.add_trace(trace2, secondary_y=True)
 
@@ -77,3 +83,5 @@ def figure4_helper(geo_code: int) -> pd.DataFrame:
 
     return df
 
+
+# get_figure4(report_input.community_cd)

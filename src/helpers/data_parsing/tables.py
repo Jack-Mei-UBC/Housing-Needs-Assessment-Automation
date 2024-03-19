@@ -9,10 +9,10 @@ if not os.path.exists(image_locations):
 if not os.path.exists(table_locations):
     os.mkdir(table_locations)
 colors = {
-    2006: "rgba(77,198,248,255)",
-    2011: "rgba(101,152,209,255)",
-    2016: "rgba(0,114,154,255)",
-    2021: "rgba(26,55,88,255)",
+    2006: "rgba(77,198,248,255)",  # Light Blue
+    2011: "rgba(101,152,209,255)",  # Medium Blue
+    2016: "rgba(0,114,154,255)",  # Dark Blue
+    2021: "rgba(26,55,88,255)",  # Dark Blue
 }
 dwelling_colors = {
     "Attached, semi-detached, row housing": "rgba(64,64,64,255)",  # Dark Grey

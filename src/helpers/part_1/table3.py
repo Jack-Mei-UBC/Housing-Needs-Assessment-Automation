@@ -38,14 +38,23 @@ def get_table3(geo_code: int) -> pd.DataFrame:
         flat_2011.loc[geo_code, [f'{x} to {x + 4} years' for x in range(15, 81, 5)] + ['85 years+']].sum() / population_2011
     df_table3.at[labels[3], 2011] = \
         flat_2011.loc[geo_code, [f'{x} to {x + 4} years' for x in range(65, 81, 5)] + ['85 years+']].sum() / population_2011
+    # 2016 and 2021 have 85 years+ show up twice, one for ppl in age range, one for PHM maintainers
     df_table3.at[labels[2], 2016] = \
-        flat_2016.loc[geo_code, [f'{x} to {x + 4} years' for x in range(15, 81, 5)] + ['85 years+']].sum() / population_2016
+        (flat_2016.loc[geo_code, [f'{x} to {x + 4} years' for x in range(15, 81, 5)]].sum() +
+         flat_2016.loc[geo_code, ["85 years+"]].iat[0]) \
+         / population_2016
     df_table3.at[labels[3], 2016] = \
-        flat_2016.loc[geo_code, [f'{x} to {x + 4} years' for x in range(65, 81, 5)] + ['85 years+']].sum() / population_2016
+        (flat_2016.loc[geo_code, [f'{x} to {x + 4} years' for x in range(65, 81, 5)]].sum() +
+         flat_2016.loc[geo_code, ["85 years+"]].iat[0]) \
+         / population_2016
     df_table3.at[labels[2], 2021] = \
-        flat_2021.loc[geo_code, [f'{x} to {x + 4} years' for x in range(15, 81, 5)] + ['85 years+']].sum() / population_2021
+        (flat_2021.loc[geo_code, [f'{x} to {x + 4} years' for x in range(15, 81, 5)]].sum() +
+         flat_2021.loc[geo_code, ["85 years+"]].iat[0]) \
+        / population_2021
     df_table3.at[labels[3], 2021] = \
-        flat_2021.loc[geo_code, [f'{x} to {x + 4} years' for x in range(65, 81, 5)] + ['85 years+']].sum() / population_2021
+        (flat_2021.loc[geo_code, [f'{x} to {x + 4} years' for x in range(65, 81, 5)]].sum() +
+         flat_2021.loc[geo_code, ["85 years+"]].iat[0]) \
+        / population_2021
 
     # Make populations integers
     df_table3.loc[labels[1], :] = df_table3.loc[labels[1], :].astype(int)
@@ -55,4 +64,4 @@ def get_table3(geo_code: int) -> pd.DataFrame:
     return df_table3
 
 
-get_table3(4806)
+# get_table3(4806)

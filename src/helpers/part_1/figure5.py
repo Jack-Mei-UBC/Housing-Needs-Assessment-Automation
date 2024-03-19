@@ -1,6 +1,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 
+import report_input
 from helpers.data_parsing.table_import import dwelling_type_period_2021
 from helpers.data_parsing.tables import image_locations, table_locations, dwelling_colors
 from helpers.introduction.table2 import get_table2
@@ -39,6 +40,18 @@ def get_figure5(geo_code: int) -> str:
             orientation="h",
         ),
 
+    )
+    # Add marks every 10% on the x axis
+    for i in range(0, 10):
+        fig.add_vline(x=i/10, line={
+            "color": "lightgrey",
+            "width": 1,
+            "dash": "dot"
+        })
+    fig.update_xaxes(
+        tickmode='linear',
+        tick0=0,
+        dtick=.1,
     )
 
     # Move legend to bottom of plot
@@ -93,3 +106,6 @@ def figure5_helper(geo_code: int, keepTotal=False) -> pd.DataFrame:
 
     # Get the percentage built by period
     return dwelling_data
+
+
+# get_figure5(report_input.community_cd)

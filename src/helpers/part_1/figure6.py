@@ -1,6 +1,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 
+import report_input
 from helpers.data_parsing.table_import import dwelling_type_bedrooms_2021
 from helpers.data_parsing.tables import image_locations, table_locations, bedroom_colors
 from helpers.introduction.table2 import get_table2
@@ -42,6 +43,7 @@ def get_figure6(geo_code: int) -> str:
     fig.update_layout(
         legend=dict(
             y=-0.2,
+            traceorder="normal",
             # orientation="h",
             # entrywidthmode='fraction',
             # entrywidth=1.5,
@@ -89,4 +91,14 @@ def figure6_helper(geo_code: int) -> pd.DataFrame:
 
     # Drop total number of bedrooms
     dwelling_data = dwelling_data.drop(index=["Total - Number of bedrooms"])
+    dwelling_data = dwelling_data.loc[
+        ["No bedrooms",
+         "1 bedroom",
+         "2 bedrooms",
+         "3 bedrooms",
+         "4 or more bedrooms"]
+    ]
     return dwelling_data
+
+
+# get_figure6(report_input.community_cd)
