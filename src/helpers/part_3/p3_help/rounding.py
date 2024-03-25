@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def my_round(x: float) -> int:
-    if x >= 800:
+    if x >= 1000:
         return round(x, -2)
     else:
         return round(x, -1)
