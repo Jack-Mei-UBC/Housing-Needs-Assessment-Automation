@@ -21,4 +21,4 @@ def get_table31(geo_code: int) -> pd.DataFrame:
     return df
 
 
-get_table31(3511)
+# get_table31(3511)

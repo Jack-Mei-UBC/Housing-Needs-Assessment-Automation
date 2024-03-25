@@ -28,6 +28,17 @@ for i in range(len(df.columns.levels)):
     df.columns = df.columns.set_levels(df.columns.levels[i].str.strip(), level=i)
 
 incomes = ['very low income', 'low income', 'moderate income', 'median income', 'high income']
+income_map = {
+    'Households with household income 121% and over of AMHI': "high income",
+    'Households with household income 20% or under of area median household income (AMHI)': "very low income",
+    'Households with household income 21% to 50% of AMHI': "low income",
+    'Households with household income 51% to 80% of AMHI': "moderate income",
+    'Households with household income 81% to 120% of AMHI': "median income",
+}
+CHN_map = {
+    'Households in core housing need status': "CHN",
+    'Total - Private Households by core housing need status': "Total",
+}
 beds = [1, 2, 3, 4, 5]
 
 # We only care about CHN
@@ -52,7 +63,7 @@ def add_columns(row: pd.Series):
                     bed = bedroom_map(type, hh_size)
                     if bed < 1 or bed > 5:
                         continue
-                    output[(bed, CHN_list[c_i], incomes[i])] += row[CHN_status, type, income, hh_size]
+                    output[(bed, CHN_map[CHN_status], income_map[income])] += row[CHN_status, type, income, hh_size]
 
     return output
 

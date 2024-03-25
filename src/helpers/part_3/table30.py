@@ -1,5 +1,6 @@
 import pandas as pd
 
+import report_input
 from helpers.data_parsing.tables import projections
 from helpers.part_3.table31 import get_table31
 
@@ -11,7 +12,7 @@ def get_table30(geo_code: int):
     df = pd.DataFrame(columns=income_lv_list, index=beds)
     for bed in beds:
         for i in income_lv_list:
-            df.loc[bed, i] = row.loc[f"2031 Projected bedroom need delta {bed} bed {i}"]
+            df.loc[bed, i] = row.loc[f"2031 Projected bedroom need {bed} bed {i}"]
     # Get totals for row and columns
     df['Total'] = df.sum(axis=1)
     df.loc['Total'] = df.sum()
@@ -23,8 +24,7 @@ def get_table30(geo_code: int):
         index={1: "1", 2: "2", 3: "3", 4: "4", 5: "5+"}
     )
     df = df.astype(int)
-
-    df_31 = get_table31(geo_code)
-    df = df+df_31
     return df
 
+
+get_table30(report_input.community_cd)
