@@ -1,7 +1,7 @@
 import os
 
 from helpers.data_parsing.table_names import csv_dict
-from standardize_dataframe import standardize_dataframe
+from run_once.standardize_dataframe import standardize_dataframe
 
 
 save_location = "assets/pickle/"
