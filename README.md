@@ -7,11 +7,15 @@ which uses `python-docx` and `jinja` internally, and the report's variables
 will reflect this syntax.  
 
 ## How to use
-1. Install python 3.12 (pip will be included), make sure to check the "Add to PATH" checkbox is offered.  You may run 
+1. Get this repo into your computer somehow, either download as zip, or clone the repo using [git](https://git-scm.com/downloads)
+```
+git clone https://github.com/UBC-HART/Housing-Needs-Assessment-Automation.git
+```
+2. Install python 3.12 (pip will be included), make sure to check the "Add to PATH" checkbox is offered.  You may run 
 into this issue if using Windows 11 [Solution](https://stackoverflow.com/questions/65348890/python-was-not-found-run-without-arguments-to-install-from-the-microsoft-store)
-2. Copy the `/assets/` folder from OneDrive into the `src` directory of this project
-3. Open the project root in a terminal, and install the necessary packages using `pip install -r requirements.txt`
-4. In the terminal, open `/src/`.  Run the python file using `run_me_once` to run the script once. 
+3. Copy the `/assets/` folder from OneDrive into the `src` directory of this project
+4. Open the project root in a terminal, and install the necessary packages using `pip install -r requirements.txt`
+5. In the terminal, open `/src/`.  Run the python file using `run_me_once` to run the script once. 
 This will create all the necessary files for this program
 
 ``` 
