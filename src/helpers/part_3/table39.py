@@ -4,7 +4,7 @@ import pandas as pd
 
 import report_input
 from helpers.data_parsing.tables import projections
-from part_3.helpers.rounding import round_df
+from helpers.part_3.p3_help.rounding import round_df
 
 income = ["20% or under of area median household income (AMHI)",
           "21% to 50% of AMHI",

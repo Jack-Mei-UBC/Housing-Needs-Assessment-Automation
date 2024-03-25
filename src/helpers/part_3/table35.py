@@ -4,7 +4,7 @@ import pandas as pd
 
 import report_input
 from helpers.data_parsing.tables import projections
-from part_3.helpers.rounding import round_df
+from helpers.part_3.p3_help.rounding import round_df
 
 hh_size = [1, 2, 3, 4, 5]
 

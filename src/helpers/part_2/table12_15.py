@@ -3,7 +3,6 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-from context_helpers import merge_years
 from helpers.data_parsing.table_import import consolidated_2016, consolidated_2021
 from report_input import percent_CHN_by
 

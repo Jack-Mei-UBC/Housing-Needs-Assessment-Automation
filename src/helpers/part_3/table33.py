@@ -3,9 +3,8 @@ from typing import List
 import pandas as pd
 
 from helpers.data_parsing.tables import projections
-from part_3.helpers.rounding import round_df
-from part_3.table35 import get_table35
-from part_3.table36 import get_table36
+from helpers.part_3.table35 import get_table35
+from helpers.part_3.table36 import get_table36
 
 hh_size = [1, 2, 3, 4, 5]
 

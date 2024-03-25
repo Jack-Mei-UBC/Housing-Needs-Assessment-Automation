@@ -10,7 +10,7 @@ from helpers.part_1.part_2_community_names import community_names_string, single
 from helpers.part_1_context import part_1_context
 from helpers.part_2_context import part_2_context
 from helpers.part_3_context import part_3_context
-import post_processing
+import helpers.post_processing as post_processing
 
 template_name = "hart_template.docx"
 output_name = "generated_doc.docx"
